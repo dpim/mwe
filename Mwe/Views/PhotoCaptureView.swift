@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct PhotoCaptureView: View {
+    @ObservedObject var events = UserEvents()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        CameraView(events: events, applicationName: "Mwe", preferredStartingCameraType: .builtInWideAngleCamera)
+
     }
 }
 

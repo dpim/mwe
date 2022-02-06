@@ -6,15 +6,75 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MapView: View {
+    @EnvironmentObject var createdPosts: Posts
+    @EnvironmentObject var user: User
+    @State private var showingAddScreen = false
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: MapDefaults.latitude, longitude: MapDefaults.longitude),span: MKCoordinateSpan(latitudeDelta: MapDefaults.zoom, longitudeDelta: MapDefaults.zoom)
+    )
+    
+    private enum MapDefaults {
+        static let latitude = 37.334_900
+        static let longitude = -122.009_020
+        static let zoom = 1.0
+    }
+    
+    var toolbarView: some View {
+        return HStack {
+            if (user.isCreator) {
+                Button {
+                    showingAddScreen = true
+                } label: {
+                    Label("Create post", systemImage: "plus")
+                }
+            }
+        }
+    }
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Map(coordinateRegion: $region, annotationItems: createdPosts.posts){ post in
+                MapAnnotation(coordinate: .init(latitude: post.latitude, longitude: post.longitude)) {
+                    VStack {
+                        NavigationLink {
+                            PostView(post: post)
+                        } label: {
+                            if post.paintingUrl != nil {
+                                Image(systemName: "photo.circle.fill").imageScale(.large)
+                            } else {
+                                Image(systemName: "photo.circle").imageScale(.large)
+                            }
+                        }
+                        .padding(15.0)
+                        .background(.regularMaterial)
+                        .border(.purple, width: 4)
+                        .foregroundColor(.purple)
+                    }
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showingAddScreen){
+            CreatePostView(
+                    latitude: region.center.latitude,
+                    longitude: region.center.longitude
+            )
+        }
+        .navigationTitle("Discover")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            toolbarView
+        }
     }
 }
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        NavigationView {
+            MapView().environmentObject(User())
+        }
     }
 }

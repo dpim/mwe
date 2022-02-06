@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class Posts: ObservableObject {
+    @Published var posts: [Post]
+    
+    init(){
+        self.posts = [.example]
+    }
+}

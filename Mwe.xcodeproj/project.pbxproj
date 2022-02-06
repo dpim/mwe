@@ -14,6 +14,22 @@
 		6789283B27AF22A300896D7B /* MweTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789283A27AF22A300896D7B /* MweTests.swift */; };
 		6789284527AF22A300896D7B /* MweUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789284427AF22A300896D7B /* MweUITests.swift */; };
 		6789284727AF22A300896D7B /* MweUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789284627AF22A300896D7B /* MweUITestsLaunchTests.swift */; };
+		6789285627AF22C300896D7B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789285527AF22C300896D7B /* LandingView.swift */; };
+		6789285827AF22D100896D7B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789285727AF22D100896D7B /* MapView.swift */; };
+		6789285A27AF22DA00896D7B /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789285927AF22DA00896D7B /* PostView.swift */; };
+		6789285C27AF22E100896D7B /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789285B27AF22E100896D7B /* CreatePostView.swift */; };
+		6789285F27AF22EF00896D7B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789285E27AF22EF00896D7B /* SettingsView.swift */; };
+		6789286127AF232F00896D7B /* PhotoCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789286027AF232F00896D7B /* PhotoCaptureView.swift */; };
+		6789286327AF297900896D7B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789286227AF297900896D7B /* User.swift */; };
+		6789286527AF29DA00896D7B /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789286427AF29DA00896D7B /* Post.swift */; };
+		6789286727AF2BB900896D7B /* LikedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789286627AF2BB900896D7B /* LikedView.swift */; };
+		6789286C27AF3E6900896D7B /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789286B27AF3E6900896D7B /* Posts.swift */; };
+		6789286F27AF472C00896D7B /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789286E27AF472C00896D7B /* LocationHelper.swift */; };
+		6789288127AF50E100896D7B /* UserEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789287827AF50E100896D7B /* UserEvents.swift */; };
+		6789288227AF50E100896D7B /* CameraActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789287927AF50E100896D7B /* CameraActions.swift */; };
+		6789288327AF50E100896D7B /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789287A27AF50E100896D7B /* CameraViewController.swift */; };
+		6789288427AF50E100896D7B /* CameraViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789287B27AF50E100896D7B /* CameraViewControllerDelegate.swift */; };
+		6789288527AF50E100896D7B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789287C27AF50E100896D7B /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +60,22 @@
 		6789284027AF22A300896D7B /* MweUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MweUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6789284427AF22A300896D7B /* MweUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MweUITests.swift; sourceTree = "<group>"; };
 		6789284627AF22A300896D7B /* MweUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MweUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6789285527AF22C300896D7B /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		6789285727AF22D100896D7B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		6789285927AF22DA00896D7B /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		6789285B27AF22E100896D7B /* CreatePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
+		6789285E27AF22EF00896D7B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6789286027AF232F00896D7B /* PhotoCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureView.swift; sourceTree = "<group>"; };
+		6789286227AF297900896D7B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6789286427AF29DA00896D7B /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		6789286627AF2BB900896D7B /* LikedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedView.swift; sourceTree = "<group>"; };
+		6789286B27AF3E6900896D7B /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		6789286E27AF472C00896D7B /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
+		6789287827AF50E100896D7B /* UserEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEvents.swift; sourceTree = "<group>"; };
+		6789287927AF50E100896D7B /* CameraActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraActions.swift; sourceTree = "<group>"; };
+		6789287A27AF50E100896D7B /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		6789287B27AF50E100896D7B /* CameraViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewControllerDelegate.swift; sourceTree = "<group>"; };
+		6789287C27AF50E100896D7B /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +126,9 @@
 		6789282827AF22A200896D7B /* Mwe */ = {
 			isa = PBXGroup;
 			children = (
+				6789286D27AF471900896D7B /* Utilities */,
+				6789285427AF22B300896D7B /* Models */,
+				6789285327AF22AD00896D7B /* Views */,
 				6789282927AF22A200896D7B /* MweApp.swift */,
 				6789282B27AF22A200896D7B /* ContentView.swift */,
 				6789282D27AF22A300896D7B /* Assets.xcassets */,
@@ -127,6 +162,67 @@
 			path = MweUITests;
 			sourceTree = "<group>";
 		};
+		6789285327AF22AD00896D7B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6789285527AF22C300896D7B /* LandingView.swift */,
+				6789285727AF22D100896D7B /* MapView.swift */,
+				6789285927AF22DA00896D7B /* PostView.swift */,
+				6789285B27AF22E100896D7B /* CreatePostView.swift */,
+				6789285E27AF22EF00896D7B /* SettingsView.swift */,
+				6789286027AF232F00896D7B /* PhotoCaptureView.swift */,
+				6789286627AF2BB900896D7B /* LikedView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6789285427AF22B300896D7B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6789286227AF297900896D7B /* User.swift */,
+				6789286427AF29DA00896D7B /* Post.swift */,
+				6789286B27AF3E6900896D7B /* Posts.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6789286D27AF471900896D7B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				6789287627AF50E100896D7B /* Sources */,
+				6789287027AF50E100896D7B /* Tests */,
+				6789286E27AF472C00896D7B /* LocationHelper.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		6789287027AF50E100896D7B /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		6789287627AF50E100896D7B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				6789287727AF50E100896D7B /* SwiftUICam */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		6789287727AF50E100896D7B /* SwiftUICam */ = {
+			isa = PBXGroup;
+			children = (
+				6789287827AF50E100896D7B /* UserEvents.swift */,
+				6789287927AF50E100896D7B /* CameraActions.swift */,
+				6789287A27AF50E100896D7B /* CameraViewController.swift */,
+				6789287B27AF50E100896D7B /* CameraViewControllerDelegate.swift */,
+				6789287C27AF50E100896D7B /* CameraView.swift */,
+			);
+			path = SwiftUICam;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +239,8 @@
 			dependencies = (
 			);
 			name = Mwe;
+			packageProductDependencies = (
+			);
 			productName = Mwe;
 			productReference = 6789282627AF22A200896D7B /* Mwe.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +313,8 @@
 				Base,
 			);
 			mainGroup = 6789281D27AF22A200896D7B;
+			packageReferences = (
+			);
 			productRefGroup = 6789282727AF22A200896D7B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +357,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6789285F27AF22EF00896D7B /* SettingsView.swift in Sources */,
+				6789285627AF22C300896D7B /* LandingView.swift in Sources */,
+				6789286127AF232F00896D7B /* PhotoCaptureView.swift in Sources */,
+				6789285827AF22D100896D7B /* MapView.swift in Sources */,
+				6789285C27AF22E100896D7B /* CreatePostView.swift in Sources */,
+				6789286327AF297900896D7B /* User.swift in Sources */,
 				6789282C27AF22A200896D7B /* ContentView.swift in Sources */,
+				6789288427AF50E100896D7B /* CameraViewControllerDelegate.swift in Sources */,
+				6789286F27AF472C00896D7B /* LocationHelper.swift in Sources */,
+				6789286C27AF3E6900896D7B /* Posts.swift in Sources */,
+				6789288127AF50E100896D7B /* UserEvents.swift in Sources */,
+				6789285A27AF22DA00896D7B /* PostView.swift in Sources */,
+				6789288527AF50E100896D7B /* CameraView.swift in Sources */,
+				6789286727AF2BB900896D7B /* LikedView.swift in Sources */,
 				6789282A27AF22A200896D7B /* MweApp.swift in Sources */,
+				6789288327AF50E100896D7B /* CameraViewController.swift in Sources */,
+				6789288227AF50E100896D7B /* CameraActions.swift in Sources */,
+				6789286527AF29DA00896D7B /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,9 +535,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mwe/Preview Content\"";
-				DEVELOPMENT_TEAM = LRM98E7ZJM;
+				DEVELOPMENT_TEAM = Z4PDY7W3HK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Mwe needs to capture photos to save on your map";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Mwe wants to capture video";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,7 +551,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Dmitry.Mwe;
+				PRODUCT_BUNDLE_IDENTIFIER = DmitryPimenov.Mwe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -448,9 +567,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mwe/Preview Content\"";
-				DEVELOPMENT_TEAM = LRM98E7ZJM;
+				DEVELOPMENT_TEAM = Z4PDY7W3HK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Mwe needs to capture photos to save on your map";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Mwe wants to capture video";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -461,7 +583,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Dmitry.Mwe;
+				PRODUCT_BUNDLE_IDENTIFIER = DmitryPimenov.Mwe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -8,13 +8,32 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var user: User
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            Section("Posts"){
+                NavigationLink {
+                    LikedView()
+                } label: {
+                    Text("Liked")
+                }
+            }
+            
+            Section("Account") {
+                Button("Log out"){
+                    self.user.isSignedIn = false
+                }
+            }
+        }
+        .navigationTitle(self.user.displayName ?? "Profile")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        NavigationView {
+            SettingsView()
+        }.environmentObject(User())
     }
 }
