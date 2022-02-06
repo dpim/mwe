@@ -13,7 +13,7 @@ struct PostView: View {
         VStack {
             Text("Viewing post")
         }
-        .navigationTitle(self.post.title ?? "Post")
+        .navigationTitle(self.post.title)
         .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -12,6 +12,8 @@ import AVFoundation
 // MARK: CameraView
 public struct CameraView: UIViewControllerRepresentable {
     @ObservedObject var events: UserEvents
+    @ObservedObject var output: CameraOutput
+    
     //To enable call to updateUIView() on change of UserEvents() bc there is a bug
     class RandomClass { }
     let x = RandomClass()
@@ -26,8 +28,9 @@ public struct CameraView: UIViewControllerRepresentable {
     private var tapToFocus: Bool
     private var doubleTapCameraSwitch: Bool
     
-    public init(events: UserEvents, applicationName: String, preferredStartingCameraType: AVCaptureDevice.DeviceType = .builtInWideAngleCamera, preferredStartingCameraPosition: AVCaptureDevice.Position = .back, focusImage: String? = nil, pinchToZoom: Bool = true, tapToFocus: Bool = true, doubleTapCameraSwitch: Bool = true) {
+    public init(events: UserEvents, output: CameraOutput, applicationName: String, preferredStartingCameraType: AVCaptureDevice.DeviceType = .builtInWideAngleCamera, preferredStartingCameraPosition: AVCaptureDevice.Position = .back, focusImage: String? = nil, pinchToZoom: Bool = true, tapToFocus: Bool = true, doubleTapCameraSwitch: Bool = true) {
         self.events = events
+        self.output = output
         
         self.applicationName = applicationName
         
@@ -89,59 +92,60 @@ public struct CameraView: UIViewControllerRepresentable {
         }
         
         public func cameraSessionStarted() {
-                print("Camera session started")
-            }
-            
+            print("Camera session started")
+        }
+        
         public func noCameraDetected() {
-                print("No camera detected")
-            }
-            
+            print("No camera detected")
+        }
+        
         public func didRotateCamera() {
-                parent.events.didAskToRotateCamera = false
-            }
-            
+            parent.events.didAskToRotateCamera = false
+        }
+        
         public func didCapturePhoto() {
-                parent.events.didAskToCapturePhoto = false
-            }
             
+            parent.events.didAskToCapturePhoto = false
+        }
+        
         public func didChangeFlashMode() {
-                parent.events.didAskToChangeFlashMode = false
-            }
-            
+            parent.events.didAskToChangeFlashMode = false
+        }
+        
         public func didFinishProcessingPhoto(_ image: UIImage) {
-                //Not yet implemented
-            }
-            
+            parent.output.image = image
+        }
+        
         public func didFinishSavingWithError(_ image: UIImage, error: NSError?, contextInfo: UnsafeRawPointer) {
-                //Not yet implemented
-            }
-            
+            //Not yet implemented
+        }
+        
         public func didChangeZoomLevel(_ zoom: CGFloat) {
-                print("New zoom value: \(zoom)")
-            }
-            
+            print("New zoom value: \(zoom)")
+        }
+        
         public func didFocusOnPoint(_ point: CGPoint) {
-                print("Focus on point \(point) made")
-            }
-            
+            print("Focus on point \(point) made")
+        }
+        
         public func didStartVideoRecording() {
-                print("Video recording started")
-            }
-            
+            print("Video recording started")
+        }
+        
         public func didFinishVideoRecording() {
-                parent.events.didAskToRecordVideo = false
-                parent.events.didAskToStopRecording = false
-                print("Video recording finished")
-            }
-            
+            parent.events.didAskToRecordVideo = false
+            parent.events.didAskToStopRecording = false
+            print("Video recording finished")
+        }
+        
         public func didSavePhoto() {
-                print("Save photo to library")
-            }
-            
+            print("Save photo to library")
+        }
+        
         public func didChangeMaximumVideoDuration(_ duration: Double) {
-        //        parent.events.maximumVideoDuration = duration
-                print("Change maximumVideoDuration to \(duration)")
-            }
+            //        parent.events.maximumVideoDuration = duration
+            print("Change maximumVideoDuration to \(duration)")
+        }
     }
 }
 

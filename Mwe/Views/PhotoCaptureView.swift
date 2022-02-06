@@ -9,10 +9,15 @@ import SwiftUI
 
 struct PhotoCaptureView: View {
     @ObservedObject var events = UserEvents()
-    
-    var body: some View {
-        CameraView(events: events, applicationName: "Mwe", preferredStartingCameraType: .builtInWideAngleCamera)
+    @ObservedObject var output = CameraOutput()
 
+    var body: some View {
+        ZStack {
+            CameraView(events: events, output: output, applicationName: "Mwe", preferredStartingCameraType: .builtInWideAngleCamera)
+            CameraInterfaceView(events: events)
+            Text("\(output.image ?? UIImage())")
+
+        }
     }
 }
 
