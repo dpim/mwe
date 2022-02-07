@@ -44,14 +44,20 @@ struct MapView: View {
                             PostView(post: post)
                         } label: {
                             if post.paintingUrl != nil {
-                                Image(systemName: "photo.circle.fill").imageScale(.large)
+                                Image(systemName: "photo.circle.fill")
+                                    .resizable()
+                                    .shadow(radius: 1.0)
+                                    .frame(width: 50, height: 50)
+                                    .background(.regularMaterial)
+
                             } else {
-                                Image(systemName: "photo.circle").imageScale(.large)
+                                Image(systemName: "photo.circle")              .resizable()
+                                    .shadow(radius: 1.0)
+                                    .frame(width: 50, height: 50)
+                                    .background(.regularMaterial)
                             }
                         }
-                        .padding(15.0)
-                        .background(.regularMaterial)
-                        .border(.purple, width: 4)
+                        .clipShape(Circle())
                         .foregroundColor(.purple)
                     }
                 }

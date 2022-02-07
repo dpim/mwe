@@ -16,32 +16,50 @@ struct CreatePostView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var caption: String = ""
     @State var title: String = ""
-    @State var photo: CGImage?
-    @State var painting: CGImage?
-
+    @State var photo: UIImage?
+    @State var painting: UIImage?
+    
+    // has the required field
     var hasPhoto: Bool {
-        print(latitude)
-        print(longitude)
         return photo != nil
     }
     
+    var readyForSubmission: Bool {
+        return photo != nil && title.count > 0
+    }
     
     var body: some View {
         NavigationView {
             Form {
                 Section("Details") {
                     NavigationLink {
-                        PhotoCaptureView()
+                        PhotoCaptureView(photo: $photo)
                     } label: {
+                        if let photo = photo {
+                            Image(uiImage: photo)
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .scaledToFill()
+                        } else {
+                            Image(systemName: "camera")
+                        }
                         Text("Take a photo")
-                    }.foregroundColor(hasPhoto ? .primary : .blue)
+                    }.foregroundColor(hasPhoto ? .primary : .accentColor)
                     
                     NavigationLink {
-                        PhotoCaptureView()
+                        PhotoCaptureView(photo: $painting)
                     } label: {
+                        if let painting = painting {
+                            Image(uiImage: painting)
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .scaledToFill()
+                        } else {
+                            Image(systemName: "paintpalette")
+                        }
                         Text("Add your painting (optional)")
                     }
-                        .disabled(!hasPhoto)
+                    .disabled(!hasPhoto)
                     
                     
                     TextField("Title", text: $title)
@@ -50,8 +68,8 @@ struct CreatePostView: View {
                     
                     TextField("Caption (optional)", text: $caption)
                         .disabled(!hasPhoto)
-                    
                 }
+                
                 Section("") {
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
@@ -60,21 +78,25 @@ struct CreatePostView: View {
                             Text("Share")
                             Spacer()
                             Image(systemName: "paperplane")
-                        }.foregroundColor(hasPhoto ? .green : .gray)
-                    }.disabled(!hasPhoto)
+                        }.foregroundColor(readyForSubmission ? .green : .gray)
+                    }.disabled(!readyForSubmission)
                 }
+                
+                
             }.navigationTitle("New post")
                 .navigationBarBackButtonHidden(true)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(trailing:
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Label("Cancel", systemImage: "x.circle")
-                    }
-                )
-            
+                                        Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "x.circle")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                }
+            )
         }
+        .accentColor(.purple)
     }
 }
 

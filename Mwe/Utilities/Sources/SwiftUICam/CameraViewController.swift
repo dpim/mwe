@@ -548,7 +548,6 @@ public class CameraViewController: UIViewController {
         guard let movieFileOutput = self.movieFileOutput else {
             return
         }
-        print("Hey3")
         
         let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection?.videoOrientation
         

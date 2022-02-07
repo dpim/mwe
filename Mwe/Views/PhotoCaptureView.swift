@@ -8,21 +8,28 @@
 import SwiftUI
 
 struct PhotoCaptureView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var photo: UIImage?
     @ObservedObject var events = UserEvents()
     @ObservedObject var output = CameraOutput()
-
+    
+    func photoHandler(_ photo: UIImage) {
+        self.photo = photo
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
     var body: some View {
         ZStack {
-            CameraView(events: events, output: output, applicationName: "Mwe", preferredStartingCameraType: .builtInWideAngleCamera)
+            ProgressView()
+            CameraView(events: events, onPhoto: photoHandler, applicationName: "Mwe", preferredStartingCameraType: .builtInWideAngleCamera)
             CameraInterfaceView(events: events)
-            Text("\(output.image ?? UIImage())")
-
         }
+        
     }
 }
 
 struct PhotoCaptureView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoCaptureView()
+        PhotoCaptureView(photo: .constant(UIImage()))
     }
 }

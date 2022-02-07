@@ -12,7 +12,7 @@ import AVFoundation
 // MARK: CameraView
 public struct CameraView: UIViewControllerRepresentable {
     @ObservedObject var events: UserEvents
-    @ObservedObject var output: CameraOutput
+    var photoHandler: (UIImage) -> Void
     
     //To enable call to updateUIView() on change of UserEvents() bc there is a bug
     class RandomClass { }
@@ -28,9 +28,9 @@ public struct CameraView: UIViewControllerRepresentable {
     private var tapToFocus: Bool
     private var doubleTapCameraSwitch: Bool
     
-    public init(events: UserEvents, output: CameraOutput, applicationName: String, preferredStartingCameraType: AVCaptureDevice.DeviceType = .builtInWideAngleCamera, preferredStartingCameraPosition: AVCaptureDevice.Position = .back, focusImage: String? = nil, pinchToZoom: Bool = true, tapToFocus: Bool = true, doubleTapCameraSwitch: Bool = true) {
+    public init(events: UserEvents, onPhoto: @escaping (UIImage) -> Void, applicationName: String, preferredStartingCameraType: AVCaptureDevice.DeviceType = .builtInWideAngleCamera, preferredStartingCameraPosition: AVCaptureDevice.Position = .back, focusImage: String? = nil, pinchToZoom: Bool = true, tapToFocus: Bool = true, doubleTapCameraSwitch: Bool = true) {
         self.events = events
-        self.output = output
+        self.photoHandler = onPhoto
         
         self.applicationName = applicationName
         
@@ -104,7 +104,6 @@ public struct CameraView: UIViewControllerRepresentable {
         }
         
         public func didCapturePhoto() {
-            
             parent.events.didAskToCapturePhoto = false
         }
         
@@ -113,7 +112,7 @@ public struct CameraView: UIViewControllerRepresentable {
         }
         
         public func didFinishProcessingPhoto(_ image: UIImage) {
-            parent.output.image = image
+            parent.photoHandler(image)
         }
         
         public func didFinishSavingWithError(_ image: UIImage, error: NSError?, contextInfo: UnsafeRawPointer) {

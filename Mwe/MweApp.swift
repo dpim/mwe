@@ -45,7 +45,7 @@ struct MweApp: App {
     
     var body: some Scene {
         WindowGroup {
-            bodyView
+            bodyView.accentColor(.purple)
         }
     }
 }

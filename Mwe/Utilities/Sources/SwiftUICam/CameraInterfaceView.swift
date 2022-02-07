@@ -13,17 +13,16 @@ struct CameraInterfaceView: View, CameraActions {
     var body: some View {
         VStack {
             HStack {
-                Button("Rotate") {
-                    self.rotateCamera(events: events)
-                }
                 Spacer()
-                Button("Flash") {
-                    self.changeFlashMode(events: events)
-                }
             }
             Spacer()
-            Button("Photo") {
+            Button {
                 self.takePhoto(events: events)
+            } label: {
+                Image(systemName: "camera.circle")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50, alignment: .center)
             }
         }
     }
