@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct MweApp: App {
-    @StateObject var user = User()
+    @StateObject var user: User = User()
     @StateObject var posts = Posts()
     @State var selection = 1
 
@@ -39,6 +39,7 @@ struct MweApp: App {
         } else {
             NavigationView {
                 LandingView()
+                    .environmentObject(user)
             }
         }
     }

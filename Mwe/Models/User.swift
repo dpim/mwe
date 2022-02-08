@@ -12,16 +12,32 @@ class User: ObservableObject {
     @Published var email: String?
     @Published var isSignedIn: Bool
     @Published var isCreator: Bool
-    let lastUpdated: Date?
+    @Published var lastUpdated: Date?
     
     
     // update to load from data
     init(){
-        self.displayName = "Dmitry"
-        self.email = "dpim@something.com"
         self.isCreator = true
+        let keychain = KeychainSwift()
+        if let name = keychain.get("name"), let email = keychain.get("email"){
+            self.displayName = name
+            self.email = email
+            self.isSignedIn = true
+            self.lastUpdated = Date()
+        } else {
+            self.displayName = nil
+            self.email = nil
+            self.isSignedIn = false
+            self.lastUpdated = nil
+        }
+    }
+    
+    func signInWith(name: String, email: String){
+        self.displayName = name
+        
+        self.email = email
         self.isSignedIn = true
-        self.lastUpdated = nil
+        self.lastUpdated = Date()
     }
     
 }
