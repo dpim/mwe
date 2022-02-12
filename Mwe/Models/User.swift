@@ -40,4 +40,14 @@ class User: ObservableObject {
         self.lastUpdated = Date()
     }
     
+    func signOut(){
+        let keychain = KeychainSwift()
+        self.displayName = nil
+        self.email = nil
+        self.isSignedIn = false
+        self.lastUpdated = nil
+        keychain.delete("name")
+        keychain.delete("email")
+    }
+    
 }
