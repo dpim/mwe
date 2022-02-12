@@ -17,6 +17,7 @@ struct LandingView: View {
     let nameKey = "name"
     let emailKey = "email"
     let idKey = "id"
+    let signedIn = "signedIn"
     
     private func signInUser(credential: ASAuthorizationAppleIDCredential){
         let keychain = KeychainSwift()
@@ -29,15 +30,15 @@ struct LandingView: View {
             keychain.set(email, forKey: emailKey)
             keychain.set(name, forKey: nameKey)
             keychain.set(id, forKey: idKey)
+            keychain.set("true", forKey: signedIn)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 user.signInWith(name: name, email: email)
             }
         } else {
             // existing user
             if let email = keychain.get(emailKey), let name = keychain.get(nameKey){
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    user.signInWith(name: name, email: email)
-                }
+                user.signInWith(name: name, email: email)
+                
             }
         }
     }

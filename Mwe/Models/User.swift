@@ -14,15 +14,18 @@ class User: ObservableObject {
     @Published var isCreator: Bool
     @Published var lastUpdated: Date?
     
-    
     // update to load from data
     init(){
         self.isCreator = true
         let keychain = KeychainSwift()
-        if let name = keychain.get("name"), let email = keychain.get("email"){
+        if
+            let name = keychain.get("name"),
+            let email = keychain.get("email"),
+            let signedIn = keychain.get("signedin")
+        {
             self.displayName = name
             self.email = email
-            self.isSignedIn = true
+            self.isSignedIn = signedIn == "true"
             self.lastUpdated = Date()
         } else {
             self.displayName = nil
@@ -34,7 +37,6 @@ class User: ObservableObject {
     
     func signInWith(name: String, email: String){
         self.displayName = name
-        
         self.email = email
         self.isSignedIn = true
         self.lastUpdated = Date()
@@ -46,8 +48,6 @@ class User: ObservableObject {
         self.email = nil
         self.isSignedIn = false
         self.lastUpdated = nil
-        keychain.delete("name")
-        keychain.delete("email")
+        keychain.set("false", forKey: "signedin")
     }
-    
 }
