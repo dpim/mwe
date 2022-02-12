@@ -18,9 +18,6 @@ struct CellView: View {
                 Text(post.title)
                 Spacer()
                 WebImage(url: URL(string: post.paintingUrl ?? ""))
-                    .placeholder(
-                        Image(systemName: "photo.fill")
-                    )
                     .resizable()
                     .scaledToFill()
                     .frame(width: 20, height: 20, alignment: .center)
@@ -31,10 +28,16 @@ struct CellView: View {
 
 
 struct LikedView: View {
+    let posts = [
+        Post.example,
+        Post.example,
+        Post.example
+    ]
     var body: some View {
         List {
-                CellView(post: Post.example)
-                CellView(post: Post.example)
+            ForEach(posts){ post in
+                CellView(post: post)
+            }
         }.navigationBarTitle("Liked")
     }
 }
