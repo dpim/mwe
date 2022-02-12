@@ -25,7 +25,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationTitle(self.user.displayName ?? "Profile")
+        .navigationTitle(self.user.displayName?.split(separator: " ")[0] ?? "Profile")
         .navigationBarTitleDisplayMode(.inline)
     }
 }

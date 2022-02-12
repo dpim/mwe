@@ -33,6 +33,7 @@
 		6789288527AF50E100896D7B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789287C27AF50E100896D7B /* CameraView.swift */; };
 		6789288727AF568400896D7B /* CameraInterfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789288627AF568400896D7B /* CameraInterfaceView.swift */; };
 		6789288927AF596D00896D7B /* CameraOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789288827AF596D00896D7B /* CameraOutput.swift */; };
+		67D5BDAB27B8303C0084194B /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 67D5BDAA27B8303C0084194B /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67D5BDAB27B8303C0084194B /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +253,7 @@
 			);
 			name = Mwe;
 			packageProductDependencies = (
+				67D5BDAA27B8303C0084194B /* SDWebImageSwiftUI */,
 			);
 			productName = Mwe;
 			productReference = 6789282627AF22A200896D7B /* Mwe.app */;
@@ -325,6 +328,7 @@
 			);
 			mainGroup = 6789281D27AF22A200896D7B;
 			packageReferences = (
+				67D5BDA927B8303C0084194B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 6789282727AF22A200896D7B /* Products */;
 			projectDirPath = "";
@@ -725,6 +729,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		67D5BDA927B8303C0084194B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		67D5BDAA27B8303C0084194B /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67D5BDA927B8303C0084194B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6789281E27AF22A200896D7B /* Project object */;
 }

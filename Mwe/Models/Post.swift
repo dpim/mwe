@@ -20,6 +20,7 @@ struct Post: Identifiable
     let postedDate: Date
     let lastUpdatedDate: Date
     let likedBy: [String]
+    private static let catImage = "https://i.imgur.com/L89fxDl.jpeg"
 
-    static let example = Post(id: "\(UUID())", owner: User(), title: "Cacti at dawn", caption: "my photo", photoUrl: "google.com", paintingUrl: "yahoo.com", latitude: 37.38, longitude: -122.00, postedDate: Date(), lastUpdatedDate: Date(), likedBy: [])
+    static let example = Post(id: "\(UUID())", owner: User(), title: "Cacti at dawn", caption: "my photo", photoUrl: catImage, paintingUrl: catImage, latitude: 37.38, longitude: -122.00, postedDate: Date(), lastUpdatedDate: Date(), likedBy: [])
 }
