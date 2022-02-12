@@ -45,17 +45,6 @@ struct LandingView: View {
     
     var body: some View {
         ZStack {
-            Image("watercolormap").resizable().rotationEffect(Angle(degrees: -25))
-                .scaleEffect(2.5+animationAmount)
-                .animation(
-                    .easeInOut(duration: 10)
-                    .repeatForever(autoreverses: true),
-                    value: animationAmount + 0.5
-                ).onAppear {
-                    animationAmount = 0.0
-                }
-            LinearGradient(gradient: Gradient(colors: [.blue.opacity(0.9), .purple.opacity(0.95)]), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
             VStack(alignment: .center){
                 Spacer()
                 Text("Mary Watercolor Experience")
@@ -79,6 +68,20 @@ struct LandingView: View {
                     .padding()
                 Spacer()
             }
+        }.background{
+            Image("watercolormap").rotationEffect(Angle(
+                degrees: -25 + 5 * animationAmount)
+            )
+                .scaleEffect(1.5 + animationAmount)
+                .animation(
+                    .easeInOut(duration: 10)
+                        .repeatForever(autoreverses: true),
+                    value: animationAmount + 0.5
+                ).onAppear {
+                    animationAmount = 0.0
+                }
+            LinearGradient(gradient: Gradient(colors: [.blue.opacity(0.9), .purple.opacity(0.95)]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }
