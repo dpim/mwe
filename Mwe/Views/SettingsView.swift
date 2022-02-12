@@ -21,7 +21,7 @@ struct SettingsView: View {
             
             Section("Account") {
                 Button("Log out"){
-                    self.user.isSignedIn = false
+                    self.user.signOut()
                 }
             }
         }

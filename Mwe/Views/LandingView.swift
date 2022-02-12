@@ -11,6 +11,7 @@ import AuthenticationServices
 import Contacts
 
 struct LandingView: View {
+    @State private var animationAmount = 0.5
     @EnvironmentObject var user: User
     let authScopes: [ASAuthorization.Scope] = [.fullName, .email]
     let nameKey = "name"
@@ -43,18 +44,41 @@ struct LandingView: View {
     
     
     var body: some View {
-        VStack {
-            Spacer()
-            SignInWithAppleButton(.signIn) { request in
-                request.requestedScopes = authScopes
-            } onCompletion: { result in
-                switch result {
-                case .success(let authResults):
-                    signInUser(credential: authResults.credential as! ASAuthorizationAppleIDCredential)
-                case .failure(let error):
-                    print("Authorisation failed: \(error.localizedDescription)")
+        ZStack {
+            Image("watercolormap").resizable().rotationEffect(Angle(degrees: -25))
+                .scaleEffect(2.5+animationAmount)
+                .animation(
+                    .easeInOut(duration: 10)
+                    .repeatForever(autoreverses: true),
+                    value: animationAmount + 0.5
+                ).onAppear {
+                    animationAmount = 0.0
                 }
-            }.frame(width: 200, height: 64, alignment: .center)
+            LinearGradient(gradient: Gradient(colors: [.blue.opacity(0.9), .purple.opacity(0.95)]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center){
+                Spacer()
+                Text("Mary Watercolor Experience")
+                    .font(Font.system(size: 64, design: .serif)
+                    )
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .shadow(color: .white, radius: 1)
+                    .padding()
+                Spacer()
+                SignInWithAppleButton(.signIn) { request in
+                    request.requestedScopes = authScopes
+                } onCompletion: { result in
+                    switch result {
+                    case .success(let authResults):
+                        signInUser(credential: authResults.credential as! ASAuthorizationAppleIDCredential)
+                    case .failure(let error):
+                        print("Authorisation failed: \(error.localizedDescription)")
+                    }
+                }.frame(width: 200, height: 64, alignment: .center)
+                    .padding()
+                Spacer()
+            }
         }
     }
 }
