@@ -18,14 +18,11 @@ class User: ObservableObject {
     init(){
         self.isCreator = true
         let keychain = KeychainSwift()
-        if
-            let name = keychain.get("name"),
-            let email = keychain.get("email"),
-            let signedIn = keychain.get("signedin")
-        {
+        let (name, email, _, signedIn) = keychain.getMweAccountDetails()
+        if let name = name, let email = email {
             self.displayName = name
             self.email = email
-            self.isSignedIn = signedIn == "true"
+            self.isSignedIn = signedIn
             self.lastUpdated = Date()
         } else {
             self.displayName = nil
@@ -43,11 +40,11 @@ class User: ObservableObject {
     }
     
     func signOut(){
-        let keychain = KeychainSwift()
         self.displayName = nil
         self.email = nil
         self.isSignedIn = false
         self.lastUpdated = nil
-        keychain.set("false", forKey: "signedin")
+        let keychain = KeychainSwift()
+        keychain.setSignedOut()
     }
 }

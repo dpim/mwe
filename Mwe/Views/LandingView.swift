@@ -27,10 +27,7 @@ struct LandingView: View {
             let name: String =     PersonNameComponentsFormatter.localizedString(from: nameParts, style: .default)
             let email: String = credential.email!
             let id: String = credential.user
-            keychain.set(email, forKey: emailKey)
-            keychain.set(name, forKey: nameKey)
-            keychain.set(id, forKey: idKey)
-            keychain.set("true", forKey: signedIn)
+            keychain.setMweAccountDetails(name: name, email: email, id: id, signedIn: true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 user.signInWith(name: name, email: email)
             }
