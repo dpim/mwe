@@ -14,11 +14,6 @@ struct LandingView: View {
     @State private var animationAmount = 0.5
     @EnvironmentObject var user: User
     let authScopes: [ASAuthorization.Scope] = [.fullName, .email]
-    let nameKey = "name"
-    let emailKey = "email"
-    let idKey = "id"
-    let signedIn = "signedIn"
-    
     private func signInUser(credential: ASAuthorizationAppleIDCredential){
         let keychain = KeychainSwift()
         if let _ = credential.email {
@@ -33,9 +28,9 @@ struct LandingView: View {
             }
         } else {
             // existing user
-            if let email = keychain.get(emailKey), let name = keychain.get(nameKey){
+            let (name, email, _, _) = keychain.getMweAccountDetails()
+            if let email = email, let name = name {
                 user.signInWith(name: name, email: email)
-                
             }
         }
     }
