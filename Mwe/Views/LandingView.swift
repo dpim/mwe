@@ -28,7 +28,7 @@ struct LandingView: View {
             }
         } else {
             // existing user
-            let (name, email, _, _) = keychain.getMweAccountDetails()
+            let (name, email, _, _x) = keychain.getMweAccountDetails()
             if let email = email, let name = name {
                 user.signInWith(name: name, email: email)
             }
