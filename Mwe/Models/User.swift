@@ -47,4 +47,5 @@ class User: ObservableObject {
         let keychain = KeychainSwift()
         keychain.setSignedOut()
     }
+    
 }
