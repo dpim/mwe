@@ -13,11 +13,11 @@ class User: ObservableObject {
     @Published var isSignedIn: Bool
     @Published var isCreator: Bool
     @Published var lastUpdated: Date?
+    let keychain = KeychainSwift()
     
     // update to load from data
     init(){
         self.isCreator = true
-        let keychain = KeychainSwift()
         let (name, email, _, signedIn) = keychain.getMweAccountDetails()
         if let name = name, let email = email {
             self.displayName = name
@@ -32,7 +32,10 @@ class User: ObservableObject {
         }
     }
     
-    func signInWith(name: String, email: String){
+    func signInWith(name: String, email: String, id: String? = nil){
+        if let id = id {
+            keychain.setMweAccountDetails(name: name, email: email, id: id, signedIn: true)
+        }
         self.displayName = name
         self.email = email
         self.isSignedIn = true

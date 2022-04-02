@@ -10,7 +10,7 @@ import MapKit
 
 struct MapView: View {
     @EnvironmentObject var createdPosts: Posts
-    @EnvironmentObject var user: User
+    @EnvironmentObject var user: User 
     @State private var showingAddScreen = false
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: MapDefaults.latitude, longitude: MapDefaults.longitude),span: MKCoordinateSpan(latitudeDelta: MapDefaults.zoom, longitudeDelta: MapDefaults.zoom)
@@ -34,7 +34,6 @@ struct MapView: View {
         }
     }
     
-    
     var body: some View {
         VStack {
             Map(coordinateRegion: $region, annotationItems: createdPosts.posts){ post in
@@ -51,7 +50,8 @@ struct MapView: View {
                                     .background(.regularMaterial)
 
                             } else {
-                                Image(systemName: "photo.circle")              .resizable()
+                                Image(systemName: "photo.circle")
+                                    .resizable()
                                     .shadow(radius: 1.0)
                                     .frame(width: 50, height: 50)
                                     .background(.regularMaterial)
@@ -80,7 +80,9 @@ struct MapView: View {
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MapView().environmentObject(User())
+            MapView()
+                .environmentObject(User())
+                .environmentObject(Posts())
         }
     }
 }
