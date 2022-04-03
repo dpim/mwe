@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Post: Identifiable, Decodable
+struct Post: Identifiable, Codable
 {
     let id: String
     let title: String
@@ -20,6 +20,20 @@ struct Post: Identifiable, Decodable
     let createdDate: Date
     let lastUpdatedDate: Date
     let likedBy: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case caption
+        case photographUrl
+        case paintingUrl
+        case latitude
+        case longitude
+        case createdBy
+        case createdDate
+        case lastUpdatedDate
+        case likedBy
+    }
     
     private static let catImage = "https://i.imgur.com/L89fxDl.jpeg"
 

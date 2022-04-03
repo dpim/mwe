@@ -18,9 +18,10 @@ class Posts: ObservableObject {
     
     func reload(){
         let url = getApiUrl(endpoint: "posts")
-//        AF.request(url, method: .get).responseDecodable(of: Post) { response in
-//            print(response)
-//        }
+        AF.request(url, method: .get).responseDecodable(of: [Post].self) { response in
+            guard let posts = response.value else { return }
+            self.posts = posts
+        }
     }
     
 }
