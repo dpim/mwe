@@ -6,24 +6,27 @@
 //
 
 import Foundation
+import SwiftUI
 
 class User: ObservableObject {
     @Published var displayName: String?
     @Published var email: String?
+    @Published var id: String?
     @Published var isSignedIn: Bool
     @Published var isCreator: Bool
     @Published var lastUpdated: Date?
-    let keychain = KeychainSwift()
     
     // update to load from data
     init(){
+        let keychain = KeychainSwift()
+        let (name, email, id, signedIn) = keychain.getMweAccountDetails()
         self.isCreator = true
-        let (name, email, _, signedIn) = keychain.getMweAccountDetails()
         if let name = name, let email = email {
             self.displayName = name
             self.email = email
             self.isSignedIn = signedIn
             self.lastUpdated = Date()
+            self.id = id
         } else {
             self.displayName = nil
             self.email = nil
@@ -33,9 +36,11 @@ class User: ObservableObject {
     }
     
     func signInWith(name: String, email: String, id: String? = nil){
+        let keychain = KeychainSwift()
         if let id = id {
             keychain.setMweAccountDetails(name: name, email: email, id: id, signedIn: true)
         }
+        self.id = id
         self.displayName = name
         self.email = email
         self.isSignedIn = true
@@ -43,11 +48,12 @@ class User: ObservableObject {
     }
     
     func signOut(){
+        let keychain = KeychainSwift()
         self.displayName = nil
         self.email = nil
+        self.id = nil
         self.isSignedIn = false
         self.lastUpdated = nil
-        let keychain = KeychainSwift()
         keychain.setSignedOut()
     }
     

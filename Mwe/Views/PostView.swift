@@ -50,7 +50,7 @@ struct PostView: View {
     var body: some View {
         List {
             Section(){
-                WebImage(url: URL(string: post.photoUrl ?? ""))
+                WebImage(url: URL(string: post.photographUrl ?? ""))
                     .resizable()
                     .scaledToFill()
                     .padding()
@@ -69,7 +69,7 @@ struct PostView: View {
             }
             
             Section("Details"){
-                Text("Created on \(self.formattedDate(post.postedDate))")
+                Text("Created on \(self.formattedDate(post.createdDate))")
             }
         }
         .navigationTitle(self.post.title)

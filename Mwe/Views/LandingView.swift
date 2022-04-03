@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 import AuthenticationServices
 import Contacts
+import Alamofire
 
 struct LandingView: View {
     @State private var animationAmount = 0.5
@@ -30,12 +31,19 @@ struct LandingView: View {
             let name: String = PersonNameComponentsFormatter.localizedString(from: nameParts, style: .default)
             let email: String = credential.email!
             let id: String = credential.user
+            
+            // post user
+            let url = getApiUrl(endpoint: "users/\(id)")
+            let params: [String: String] = [
+                "displayName": name
+            ]
+            AF.request(url, method: .post, parameters: params, encoder: JSONParameterEncoder.default)
             delayedSignIn(name, email, id)
         } else {
             // existing user
-            let (name, email, _, _) = keychain.getMweAccountDetails()
-            if let email = email, let name = name {
-                delayedSignIn(name, email)
+            let (name, email, id, _) = keychain.getMweAccountDetails()
+            if let email = email, let name = name, let id = id {
+                delayedSignIn(name, email, id)
             }
         }
     }

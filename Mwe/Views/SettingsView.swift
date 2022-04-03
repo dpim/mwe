@@ -13,7 +13,7 @@ struct SettingsView: View {
         Form {
             Section("Posts"){
                 NavigationLink {
-                    LikedView()
+                    LikedView().environmentObject(user)
                 } label: {
                     Text("Liked")
                 }

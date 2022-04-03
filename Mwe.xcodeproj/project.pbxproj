@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6729AE5727F9385E0006B250 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6729AE5627F9385E0006B250 /* Alamofire */; };
+		6729AE5927F9394D0006B250 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6729AE5827F9394D0006B250 /* Api.swift */; };
 		675EF14427B2D25C00A81A44 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675EF14327B2D25C00A81A44 /* KeychainWrapper.swift */; };
 		6789282A27AF22A200896D7B /* MweApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789282927AF22A200896D7B /* MweApp.swift */; };
 		6789282C27AF22A200896D7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789282B27AF22A200896D7B /* ContentView.swift */; };
@@ -55,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6729AE5827F9394D0006B250 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		6755B2AE27B2C16000CCCF13 /* Mwe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mwe.entitlements; sourceTree = "<group>"; };
 		675EF14327B2D25C00A81A44 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		6789282627AF22A200896D7B /* Mwe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mwe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67D5BDAB27B8303C0084194B /* SDWebImageSwiftUI in Frameworks */,
+				6729AE5727F9385E0006B250 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +210,7 @@
 				6789286E27AF472C00896D7B /* LocationHelper.swift */,
 				675EF14327B2D25C00A81A44 /* KeychainWrapper.swift */,
 				67D5BDED27B977340084194B /* KeychainExtensions.swift */,
+				6729AE5827F9394D0006B250 /* Api.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			name = Mwe;
 			packageProductDependencies = (
 				67D5BDAA27B8303C0084194B /* SDWebImageSwiftUI */,
+				6729AE5627F9385E0006B250 /* Alamofire */,
 			);
 			productName = Mwe;
 			productReference = 6789282627AF22A200896D7B /* Mwe.app */;
@@ -332,6 +338,7 @@
 			mainGroup = 6789281D27AF22A200896D7B;
 			packageReferences = (
 				67D5BDA927B8303C0084194B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				6729AE5527F9385E0006B250 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 6789282727AF22A200896D7B /* Products */;
 			projectDirPath = "";
@@ -380,6 +387,7 @@
 				6789286127AF232F00896D7B /* PhotoCaptureView.swift in Sources */,
 				6789285827AF22D100896D7B /* MapView.swift in Sources */,
 				6789285C27AF22E100896D7B /* CreatePostView.swift in Sources */,
+				6729AE5927F9394D0006B250 /* Api.swift in Sources */,
 				6789286327AF297900896D7B /* User.swift in Sources */,
 				6789282C27AF22A200896D7B /* ContentView.swift in Sources */,
 				6789288427AF50E100896D7B /* CameraViewControllerDelegate.swift in Sources */,
@@ -735,6 +743,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6729AE5527F9385E0006B250 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		67D5BDA927B8303C0084194B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -746,6 +762,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6729AE5627F9385E0006B250 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6729AE5527F9385E0006B250 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		67D5BDAA27B8303C0084194B /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 67D5BDA927B8303C0084194B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

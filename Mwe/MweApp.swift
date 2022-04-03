@@ -19,8 +19,6 @@ struct MweApp: App {
             TabView(selection: $selection) {
                 NavigationView {
                     MapView()
-                        .environmentObject(user)
-                        .environmentObject(posts)
                 }
                 .tabItem {
                     Image(systemName: "map")
@@ -46,7 +44,10 @@ struct MweApp: App {
     
     var body: some Scene {
         WindowGroup {
-            bodyView.accentColor(.purple)
+            bodyView
+                .accentColor(.purple)
+                .environmentObject(user)
+                .environmentObject(posts)
         }
     }
 }
