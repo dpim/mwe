@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import Request
 
 @main
+
 struct MweApp: App {
     @StateObject var user: User = User()
     @StateObject var posts = Posts()
@@ -51,3 +53,6 @@ struct MweApp: App {
         }
     }
 }
+
+
+typealias RequestBody = Body

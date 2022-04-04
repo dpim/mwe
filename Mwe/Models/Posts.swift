@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Alamofire
+import Request
 
 class Posts: ObservableObject {
     @Published var posts: [Post]
@@ -18,10 +18,15 @@ class Posts: ObservableObject {
     
     func reload(){
         let url = getApiUrl(endpoint: "posts")
-        AF.request(url, method: .get).responseDecodable(of: [Post].self) { response in
-            guard let posts = response.value else { return }
-            self.posts = posts
-        }
+        Request {
+            Url(url)
+            Method(.get)
+            Header.Accept(.json)
+        }.onJson({
+            json in
+            print(json)
+        }).call()
+        
     }
     
 }

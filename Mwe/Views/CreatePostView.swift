@@ -4,8 +4,9 @@
 //
 //  Created by Dmitry Pimenov on 2/5/22.
 //
-import Alamofire
 import SwiftUI
+import Request
+import Json
 
 private let exampleLatitude = 37.382221
 private let exampleLongitude = -122.1937
@@ -76,19 +77,16 @@ struct CreatePostView: View {
                     Button(action: {
                         // post user
                         let url = getApiUrl(endpoint: "posts")
-                        print("url \(url)")
-                        let params: [String: Any] = [
-                            "title": title,
-                            "caption": caption,
-                            "userId": user.id ?? "",
-                            "latitude": latitude,
-                            "longitude": longitude
-                        ]
-                        let _ = AF.request(url, method: .post, parameters: params).responseData {
-                            response in
-                            print(response)
-                        }
-                        presentationMode.wrappedValue.dismiss()
+                        let body = PostRequestBody(title: title, caption: caption, userId: user.id ?? "", latitude: latitude, longtiude: longitude)
+                        Request {
+                            Url(url)
+                            Method(.post)
+                            Header.ContentType(.json)
+                            RequestBody(body)
+                        }.onJson({
+                            json in
+                            print(json)
+                        }).call()
                     }){
                         HStack {
                             Text("Share")

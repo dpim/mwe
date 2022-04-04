@@ -9,7 +9,8 @@ import SwiftUI
 import UIKit
 import AuthenticationServices
 import Contacts
-import Alamofire
+import Request
+import Json
 
 struct LandingView: View {
     @State private var animationAmount = 0.5
@@ -34,10 +35,14 @@ struct LandingView: View {
             
             // post user
             let url = getApiUrl(endpoint: "users/\(id)")
-            let params: [String: String] = [
-                "displayName": name
-            ]
-            let _ = AF.request(url, method: .post, parameters: params, encoder: JSONParameterEncoder.default)
+            Request {
+                Url(url)
+                Method(.post)
+                Header.ContentType(.json)
+                RequestBody(Json([
+                    "displayName": name
+                ]).stringified)
+            }.call()
             delayedSignIn(name, email, id)
         } else {
             // existing user
