@@ -4,20 +4,22 @@
 //
 //  Created by Dmitry Pimenov on 2/5/22.
 //
-
+import Alamofire
 import SwiftUI
 
 private let exampleLatitude = 37.382221
 private let exampleLongitude = -122.1937
 
 struct CreatePostView: View {
-    var latitude: Double
-    var longitude: Double
+    @EnvironmentObject var user: User
     @Environment(\.presentationMode) var presentationMode
     @State var caption: String = ""
     @State var title: String = ""
     @State var photo: UIImage?
     @State var painting: UIImage?
+    
+    var latitude: Double
+    var longitude: Double
     
     // has the required field
     var hasPhoto: Bool {
@@ -72,6 +74,20 @@ struct CreatePostView: View {
                 
                 Section("") {
                     Button(action: {
+                        // post user
+                        let url = getApiUrl(endpoint: "posts")
+                        print("url \(url)")
+                        let params: [String: Any] = [
+                            "title": title,
+                            "caption": caption,
+                            "userId": user.id ?? "",
+                            "latitude": latitude,
+                            "longitude": longitude
+                        ]
+                        let _ = AF.request(url, method: .post, parameters: params).responseData {
+                            response in
+                            print(response)
+                        }
                         presentationMode.wrappedValue.dismiss()
                     }){
                         HStack {
@@ -102,6 +118,6 @@ struct CreatePostView: View {
 
 struct CreatePostView_Previews: PreviewProvider {
     static var previews: some View {
-        CreatePostView(latitude: exampleLatitude , longitude: exampleLongitude)
+        CreatePostView(latitude: exampleLatitude , longitude: exampleLongitude).environmentObject(User())
     }
 }

@@ -37,7 +37,7 @@ struct LandingView: View {
             let params: [String: String] = [
                 "displayName": name
             ]
-            AF.request(url, method: .post, parameters: params, encoder: JSONParameterEncoder.default)
+            let _ = AF.request(url, method: .post, parameters: params, encoder: JSONParameterEncoder.default)
             delayedSignIn(name, email, id)
         } else {
             // existing user
