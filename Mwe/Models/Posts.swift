@@ -10,29 +10,9 @@ import Request
 import CloudKit
 
 class Posts: ObservableObject {
-    @Published var posts: [Post]
+    @Published var postEntries: [Post]
     
     init(){
-        self.posts = []
-        reload()
-    }
-    
-    func reload(){
-        let url = getApiUrl(endpoint: "posts")
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .secondsSince1970
-        Request {
-            Url(url)
-            Method(.get)
-            Header.Accept(.json)
-        }
-        .onData { posts in
-            do {
-                self.posts = try decoder.decode([Post].self, from: posts)
-            } catch {
-                
-            }
-        }
-        .call()
+        self.postEntries = []
     }
 }

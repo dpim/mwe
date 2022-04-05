@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import Request
 
 struct MapView: View {
     @EnvironmentObject var createdPosts: Posts
@@ -21,7 +22,7 @@ struct MapView: View {
         static let longitude = -122.009_020
         static let zoom = 1.0
     }
-    
+        
     var toolbarView: some View {
         return HStack {
             if (user.isCreator) {
@@ -36,7 +37,7 @@ struct MapView: View {
     
     var body: some View {
         VStack {
-            Map(coordinateRegion: $region, annotationItems: createdPosts.posts){ post in
+            Map(coordinateRegion: $region, annotationItems: createdPosts.postEntries){ post in
                 MapAnnotation(coordinate: .init(latitude: post.latitude, longitude: post.longitude)) {
                     VStack {
                         NavigationLink {
