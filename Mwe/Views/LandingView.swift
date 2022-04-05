@@ -35,13 +35,12 @@ struct LandingView: View {
             
             // post user
             let url = getApiUrl(endpoint: "users/\(id)")
+            let body = AccountRequestBody(displayName: name)
             Request {
                 Url(url)
                 Method(.post)
                 Header.ContentType(.json)
-                RequestBody(Json([
-                    "displayName": name
-                ]).stringified)
+                RequestBody(body)
             }.call()
             delayedSignIn(name, email, id)
         } else {

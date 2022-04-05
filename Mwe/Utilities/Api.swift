@@ -18,5 +18,9 @@ struct PostRequestBody: Codable {
     let caption: String?
     let userId: String
     let latitude: Double
-    let longtiude: Double
+    let longitude: Double
+}
+
+struct AccountRequestBody: Codable {
+    let displayName: String
 }
