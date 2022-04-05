@@ -24,3 +24,4 @@ struct PostRequestBody: Codable {
 struct AccountRequestBody: Codable {
     let displayName: String
 }
+

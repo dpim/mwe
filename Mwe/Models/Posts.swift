@@ -7,6 +7,7 @@
 
 import Foundation
 import Request
+import CloudKit
 
 class Posts: ObservableObject {
     @Published var posts: [Post]
@@ -18,15 +19,20 @@ class Posts: ObservableObject {
     
     func reload(){
         let url = getApiUrl(endpoint: "posts")
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
         Request {
             Url(url)
             Method(.get)
             Header.Accept(.json)
-        }.onJson({
-            json in
-            print(json)
-        }).call()
-        
+        }
+        .onData { posts in
+            do {
+                self.posts = try decoder.decode([Post].self, from: posts)
+            } catch {
+                
+            }
+        }
+        .call()
     }
-    
 }

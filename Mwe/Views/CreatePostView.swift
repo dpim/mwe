@@ -77,7 +77,7 @@ struct CreatePostView: View {
                     Button(action: {
                         // post user
                         let url = getApiUrl(endpoint: "posts")
-                        let body = PostRequestBody(title: title, caption: caption, userId: user.id ?? "", latitude: latitude, longtiude: longitude)
+                        let body = PostRequestBody(title: title, caption: caption, userId: user.id ?? "", latitude: latitude, longitude: longitude)
                         Request {
                             Url(url)
                             Method(.post)

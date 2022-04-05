@@ -65,7 +65,7 @@ struct PostView: View {
             }
             
             Section("Caption"){
-                Text(post.caption)
+                Text(post.caption ?? "-")
             }
             
             Section("Details"){
@@ -91,7 +91,10 @@ struct PostView: View {
     func formattedDate(_ date: Date) -> String {
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "MMM dd, yyyy"
-        return dateFormatterPrint.string(from: date)
+        let epoch = date.timeIntervalSince1970/1000
+        print(epoch)
+        let updatedDate = Date(timeIntervalSince1970: epoch)
+        return dateFormatterPrint.string(from: updatedDate)
     }
 }
 
