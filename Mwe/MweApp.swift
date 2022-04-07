@@ -15,23 +15,21 @@ struct MweApp: App {
     @StateObject var posts = Posts()
     @State var selection = 1
     
-    func getPosts(){
-        let url = getApiUrl(endpoint: "posts")
+    // handler for fetched post data
+    func onNewPost(data: Data){
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
-        Request {
-            Url(url)
-            Method(.get)
-            Header.Accept(.json)
+        do {
+            posts.postEntries = try decoder.decode([Post].self, from: data)
+            posts.shouldFetch = false
+        } catch {
+            posts.postEntries = []
+            posts.shouldFetch = false
         }
-        .onData { postData in
-            do {
-                posts.postEntries = try decoder.decode([Post].self, from: postData)
-            } catch {
-                posts.postEntries = []
-            }
-        }
-        .call()
+    }
+    
+    func fetchPosts(){
+        getPosts(success: onNewPost)
     }
 
     @ViewBuilder
@@ -40,11 +38,22 @@ struct MweApp: App {
             TabView(selection: $selection) {
                 NavigationView {
                     MapView()
+                        .onAppear(perform: fetchPosts)
+                        .onChange(of: posts.shouldFetch){
+                            updatedShouldFetch in
+                            // if the latest change is flagging we should fetch, get new posts
+                            if updatedShouldFetch {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    fetchPosts()
+                                }
+                            }
+                        }
                 }
                 .tabItem {
                     Image(systemName: "map")
                     Text("Discover")
-                }.tag(1)
+                }
+                    .tag(1)
                 
                 NavigationView {
                     SettingsView()
@@ -54,7 +63,7 @@ struct MweApp: App {
                     Image(systemName: "person.fill")
                     Text("Profile")
                 }.tag(2)
-            }.onAppear(perform: getPosts)
+            }
         } else {
             NavigationView {
                 LandingView()
@@ -72,6 +81,5 @@ struct MweApp: App {
         }
     }
 }
-
 
 typealias RequestBody = Body

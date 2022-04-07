@@ -12,8 +12,9 @@ private let exampleLatitude = 37.382221
 private let exampleLongitude = -122.1937
 
 struct CreatePostView: View {
-    @EnvironmentObject var user: User
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var posts: Posts
+    @EnvironmentObject var user: User
     @State var caption: String = ""
     @State var title: String = ""
     @State var photo: UIImage?
@@ -64,10 +65,8 @@ struct CreatePostView: View {
                     }
                     .disabled(!hasPhoto)
                     
-                    
                     TextField("Title", text: $title)
                         .disabled(!hasPhoto)
-                    
                     
                     TextField("Caption (optional)", text: $caption)
                         .disabled(!hasPhoto)
@@ -76,17 +75,11 @@ struct CreatePostView: View {
                 Section("") {
                     Button(action: {
                         // post user
-                        let url = getApiUrl(endpoint: "posts")
-                        let body = PostRequestBody(title: title, caption: caption, userId: user.id ?? "", latitude: latitude, longitude: longitude)
-                        Request {
-                            Url(url)
-                            Method(.post)
-                            Header.ContentType(.json)
-                            RequestBody(body)
-                        }.onJson({
-                            json in
-                            print(json)
-                        }).call()
+                        if let userId = user.id {
+                            createPost(title: title, caption: caption, userId: userId, latitude: latitude, longitude: longitude, photograph: photo, painting: painting)
+                            posts.shouldRefresh()
+                        }
+                        presentationMode.wrappedValue.dismiss()
                     }){
                         HStack {
                             Text("Share")
@@ -116,6 +109,6 @@ struct CreatePostView: View {
 
 struct CreatePostView_Previews: PreviewProvider {
     static var previews: some View {
-        CreatePostView(latitude: exampleLatitude , longitude: exampleLongitude).environmentObject(User())
+        CreatePostView(latitude: exampleLatitude , longitude: exampleLongitude).environmentObject(User()).environmentObject(Posts())
     }
 }

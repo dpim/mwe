@@ -15,26 +15,33 @@ struct PostView: View {
     @State private var showingAlert = false
     let post: Post
     
-    var LikeButton: some View {
-        didLikePost = post.likedBy.contains(user.email ?? "")
+    func getLikes(){
+        didLikePost = post.likedBy.contains(user.id ?? "")
         likeCount = max(post.likedBy.count, likeCount)
+    }
+    
+    var LikeButton: some View {
         let likeButtonColor = didLikePost ? Color.accentColor : Color.gray
         let likeText = likeCount == 0 ? "Like" : "Liked by \(likeCount)"
         return HStack {
             Button {
                 // update count
-                if (didLikePost){
-                    likeCount -= 1
-                } else {
-                    likeCount += 1
+                if let userId = user.id {
+                    if (didLikePost){
+                        removeLike(userId: userId, postId: post.id)
+                        likeCount -= 1
+                    } else {
+                        addLike(userId: userId, postId: post.id)
+                        likeCount += 1
+                    }
                 }
-                // post like
-                
                 didLikePost = !didLikePost
             } label: {
                 Label(likeText, systemImage: "hand.thumbsup.circle")
             }.foregroundColor(likeButtonColor)
-        }.frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .onAppear(perform: getLikes)
     }
     
     var toolbarView: some View {
@@ -64,8 +71,10 @@ struct PostView: View {
                 LikeButton
             }
             
-            Section("Caption"){
-                Text(post.caption ?? "-")
+            if let caption = post.caption, caption.count > 1 {
+                Section("Caption"){
+                    Text(post.caption ?? "-")
+                }
             }
             
             Section("Details"){
@@ -92,7 +101,6 @@ struct PostView: View {
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "MMM dd, yyyy"
         let epoch = date.timeIntervalSince1970/1000
-        print(epoch)
         let updatedDate = Date(timeIntervalSince1970: epoch)
         return dateFormatterPrint.string(from: updatedDate)
     }

@@ -10,6 +10,7 @@
 		6729AE5927F9394D0006B250 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6729AE5827F9394D0006B250 /* Api.swift */; };
 		6729AE5C27FB39F20006B250 /* Json in Frameworks */ = {isa = PBXBuildFile; productRef = 6729AE5B27FB39F20006B250 /* Json */; };
 		6729AE5E27FB39F20006B250 /* Request in Frameworks */ = {isa = PBXBuildFile; productRef = 6729AE5D27FB39F20006B250 /* Request */; };
+		6729AE6027FD40200006B250 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6729AE5F27FD40200006B250 /* Image.swift */; };
 		675EF14427B2D25C00A81A44 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675EF14327B2D25C00A81A44 /* KeychainWrapper.swift */; };
 		6789282A27AF22A200896D7B /* MweApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789282927AF22A200896D7B /* MweApp.swift */; };
 		6789282C27AF22A200896D7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789282B27AF22A200896D7B /* ContentView.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		6729AE5827F9394D0006B250 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		6729AE5F27FD40200006B250 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		6755B2AE27B2C16000CCCF13 /* Mwe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mwe.entitlements; sourceTree = "<group>"; };
 		675EF14327B2D25C00A81A44 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		6789282627AF22A200896D7B /* Mwe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mwe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +215,7 @@
 				675EF14327B2D25C00A81A44 /* KeychainWrapper.swift */,
 				67D5BDED27B977340084194B /* KeychainExtensions.swift */,
 				6729AE5827F9394D0006B250 /* Api.swift */,
+				6729AE5F27FD40200006B250 /* Image.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6789285F27AF22EF00896D7B /* SettingsView.swift in Sources */,
+				6729AE6027FD40200006B250 /* Image.swift in Sources */,
 				6789285627AF22C300896D7B /* LandingView.swift in Sources */,
 				6789286127AF232F00896D7B /* PhotoCaptureView.swift in Sources */,
 				6789285827AF22D100896D7B /* MapView.swift in Sources */,

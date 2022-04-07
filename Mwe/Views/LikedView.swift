@@ -26,7 +26,6 @@ struct CellView: View {
     }
 }
 
-
 struct LikedView: View {
     let posts = [
         Post.example,
