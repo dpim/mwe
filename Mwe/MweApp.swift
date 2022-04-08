@@ -28,14 +28,14 @@ struct MweApp: App {
     }
     
     // handler for fetching blocked posts
-    func onReceivedBlockedPosts(blockedPostIds: [String]){
-        user.setBlockedPostIds(blockedPostIds)
+    func onReceivedUserPosts(blockedPostIds: [String], likedPostIds: [String]){
+        user.setUserPostIds(likedPosts: likedPostIds, blockedPosts: blockedPostIds)
     }
     
     func fetchPosts(){
         if let userId = self.user.id {
             posts.isRefreshing()
-            getBlockedPosts(userId: userId, success: onReceivedBlockedPosts)
+            getUserPosts(userId: userId, success: onReceivedUserPosts)
             getPosts(success: onNewPost)
         }
     }

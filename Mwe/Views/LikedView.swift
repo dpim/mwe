@@ -27,17 +27,22 @@ struct CellView: View {
 }
 
 struct LikedView: View {
-    let posts = [
-        Post.example,
-        Post.example,
-        Post.example
-    ]
+    @EnvironmentObject var posts: Posts
+    @EnvironmentObject var user: User
+
+    var filteredPosts: [Post] {
+        return posts.postEntries.filter { post in
+            return self.user.likedPostIds.contains(post.id)
+        }
+    }
+    
     var body: some View {
         List {
-            ForEach(posts){ post in
+            ForEach(filteredPosts){ post in
                 CellView(post: post)
             }
-        }.navigationBarTitle("Liked")
+        }
+        .navigationBarTitle("Liked")
     }
 }
 

@@ -14,7 +14,9 @@ class User: ObservableObject {
     @Published var id: String?
     @Published var isSignedIn: Bool
     @Published var lastUpdated: Date?
-    @Published var blockedPostsIds: [String]
+    @Published var blockedPostIds: [String]
+    @Published var likedPostIds: [String]
+
 
     var isCreator: Bool {
        return true // (displayName == "Mary Pimenova")
@@ -24,24 +26,27 @@ class User: ObservableObject {
     init(){
         let keychain = KeychainSwift()
         let (name, email, id, signedIn) = keychain.getMweAccountDetails()
+        self.blockedPostIds = []
+        self.likedPostIds = []
         if let name = name, let email = email {
             self.displayName = name
             self.email = email
             self.isSignedIn = signedIn
             self.lastUpdated = Date()
             self.id = id
-            self.blockedPostsIds = []
         } else {
             self.displayName = nil
             self.email = nil
             self.isSignedIn = false
             self.lastUpdated = nil
-            self.blockedPostsIds = []
         }
     }
     
-    func setBlockedPostIds(_ ids: [String]){
-        self.blockedPostsIds = ids
+    func setUserPostIds(likedPosts: [String], blockedPosts: [String]){
+        DispatchQueue.main.async {
+            self.blockedPostIds = blockedPosts
+            self.likedPostIds = likedPosts
+        }
     }
     
     func signInWith(name: String, email: String, id: String? = nil){

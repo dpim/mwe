@@ -40,7 +40,7 @@ struct MapView: View {
     
     var filteredPosts: [Post] {
         return createdPosts.postEntries.filter { post in
-            return !self.user.blockedPostsIds.contains(post.id)
+            return !self.user.blockedPostIds.contains(post.id)
         }
     }
     

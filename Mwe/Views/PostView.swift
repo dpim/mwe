@@ -27,11 +27,16 @@ struct PostView: View {
             Button {
                 // update count
                 if let userId = user.id {
+                    let postId = post.id
                     if (didLikePost){
-                        removeLike(userId: userId, postId: post.id)
+                        removeLike(userId: userId, postId: postId)
+                        if let index = user.likedPostIds.firstIndex(of: postId){
+                            user.likedPostIds.remove(at: index)
+                        }
                         likeCount -= 1
                     } else {
-                        addLike(userId: userId, postId: post.id)
+                        addLike(userId: userId, postId: postId)
+                        user.likedPostIds.append(postId)
                         likeCount += 1
                     }
                 }

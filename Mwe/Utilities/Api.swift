@@ -136,7 +136,7 @@ func reportPost(userId: String, postId: String){
     .call()
 }
 
-func getBlockedPosts(userId: String, success: @escaping (_ blockedPosts: [String]) -> Void) {
+func getUserPosts(userId: String, success: @escaping ((blockedPostIds: [String], likedPostIds: [String])) -> Void) {
     let url = getApiUrl(endpoint: "users/\(userId)")
     Request {
         Url(url)
@@ -144,9 +144,10 @@ func getBlockedPosts(userId: String, success: @escaping (_ blockedPosts: [String
         Header.Accept(.json)
     }.onJson({
         json in
-        if let blockedPostsIds = json["blockedPosts"].arrayOptional {
-            let ids: [String] = blockedPostsIds.map({ String(describing: $0)})
-            success(ids)
+        if let blockedPostsIds = json["blockedPosts"].arrayOptional, let likedPostIds = json["likedPosts"].arrayOptional {
+            let blockedIds: [String] = blockedPostsIds.map({ String(describing: $0)})
+            let likedIds: [String] = likedPostIds.map({ String(describing: $0)})
+            success((blockedPostIds: blockedIds, likedPostIds: likedIds))
         }
     })
     .call()
