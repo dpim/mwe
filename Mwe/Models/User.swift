@@ -13,26 +13,35 @@ class User: ObservableObject {
     @Published var email: String?
     @Published var id: String?
     @Published var isSignedIn: Bool
-    @Published var isCreator: Bool
     @Published var lastUpdated: Date?
+    @Published var blockedPostsIds: [String]
+
+    var isCreator: Bool {
+       return true // (displayName == "Mary Pimenova")
+    }
     
     // update to load from data
     init(){
         let keychain = KeychainSwift()
         let (name, email, id, signedIn) = keychain.getMweAccountDetails()
-        self.isCreator = true
         if let name = name, let email = email {
             self.displayName = name
             self.email = email
             self.isSignedIn = signedIn
             self.lastUpdated = Date()
             self.id = id
+            self.blockedPostsIds = []
         } else {
             self.displayName = nil
             self.email = nil
             self.isSignedIn = false
             self.lastUpdated = nil
+            self.blockedPostsIds = []
         }
+    }
+    
+    func setBlockedPostIds(_ ids: [String]){
+        self.blockedPostsIds = ids
     }
     
     func signInWith(name: String, email: String, id: String? = nil){
@@ -56,5 +65,4 @@ class User: ObservableObject {
         self.lastUpdated = nil
         keychain.setSignedOut()
     }
-    
 }

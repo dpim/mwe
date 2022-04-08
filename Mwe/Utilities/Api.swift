@@ -125,3 +125,29 @@ func removeLike(userId: String, postId: String){
     .call()
 }
 
+func reportPost(userId: String, postId: String){
+    let url = getApiUrl(endpoint: "posts/\(postId)/report")
+    Request {
+        Url(url)
+        Method(.post)
+        Header.ContentType(.json)
+        RequestBody(UserIdBody(userId: userId))
+    }
+    .call()
+}
+
+func getBlockedPosts(userId: String, success: @escaping (_ blockedPosts: [String]) -> Void) {
+    let url = getApiUrl(endpoint: "users/\(userId)")
+    Request {
+        Url(url)
+        Method(.get)
+        Header.Accept(.json)
+    }.onJson({
+        json in
+        if let blockedPostsIds = json["blockedPosts"].arrayOptional {
+            let ids: [String] = blockedPostsIds.map({ String(describing: $0)})
+            success(ids)
+        }
+    })
+    .call()
+}

@@ -20,16 +20,24 @@ struct MweApp: App {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         do {
-            posts.postEntries = try decoder.decode([Post].self, from: data)
-            posts.shouldFetch = false
+            let postEntries = try decoder.decode([Post].self, from: data)
+            posts.didRefresh(withResults: postEntries)
         } catch {
-            posts.postEntries = []
-            posts.shouldFetch = false
+            posts.didRefresh(withResults: [])
         }
     }
     
+    // handler for fetching blocked posts
+    func onReceivedBlockedPosts(blockedPostIds: [String]){
+        user.setBlockedPostIds(blockedPostIds)
+    }
+    
     func fetchPosts(){
-        getPosts(success: onNewPost)
+        if let userId = self.user.id {
+            posts.isRefreshing()
+            getBlockedPosts(userId: userId, success: onReceivedBlockedPosts)
+            getPosts(success: onNewPost)
+        }
     }
 
     @ViewBuilder

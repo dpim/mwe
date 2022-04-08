@@ -92,6 +92,9 @@ struct PostView: View {
         .alert("Report this post for review?", isPresented: $showingAlert) {
             Button("Report post", role: .destructive) {
                 // report post
+                if let userId = user.id {
+                    reportPost(userId: userId, postId: post.id)
+                }
             }
             Button("Cancel", role: .cancel) { }
         }

@@ -25,6 +25,9 @@ struct MapView: View {
         
     var toolbarView: some View {
         return HStack {
+            if (createdPosts.isFetching){
+                ProgressView()
+            }
             if (user.isCreator) {
                 Button {
                     showingAddScreen = true
@@ -35,9 +38,15 @@ struct MapView: View {
         }
     }
     
+    var filteredPosts: [Post] {
+        return createdPosts.postEntries.filter { post in
+            return !self.user.blockedPostsIds.contains(post.id)
+        }
+    }
+    
     var body: some View {
         VStack {
-            Map(coordinateRegion: $region, annotationItems: createdPosts.postEntries){ post in
+            Map(coordinateRegion: $region, annotationItems: filteredPosts){ post in
                 MapAnnotation(coordinate: .init(latitude: post.latitude, longitude: post.longitude)) {
                     VStack {
                         NavigationLink {
