@@ -13,14 +13,36 @@ struct PostView: View {
     @State private var likeCount = 0
     @State private var didLikePost = false
     @State private var showingAlert = false
-    let post: Post
+    @State var painting: UIImage?
+    @State private var showingAddScreen = false
+    @State private var fetchingPost = false
+    @State var post: Post
+
+    func onNewPost(data: Data){
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        do {
+            post = try decoder.decode(Post.self, from: data)
+        } catch {
+            print("could not update post")
+        }
+        self.fetchingPost = false
+    }
     
     func getLikes(){
         didLikePost = post.likedBy.contains(user.id ?? "")
         likeCount = max(post.likedBy.count, likeCount)
     }
     
-    var LikeButton: some View {
+    var addPaintingButton: some View {
+        Button {
+            showingAddScreen = true
+        } label: {
+            Text("Add your painting")
+        }
+    }
+    
+    var likeButton: some View {
         let likeButtonColor = didLikePost ? Color.accentColor : Color.gray
         let likeText = likeCount == 0 ? "Like" : "Liked by \(likeCount)"
         return HStack {
@@ -68,12 +90,21 @@ struct PostView: View {
                     .padding()
                     .shadow(color: .black, radius: 2)
                 
-                WebImage(url: URL(string: post.paintingUrl ?? ""))
-                    .resizable()
-                    .scaledToFill()
-                    .padding()
-                    .shadow(color: .black, radius: 2)
-                LikeButton
+                if (post.paintingUrl != nil){
+                    WebImage(url: URL(string: post.paintingUrl ?? ""))
+                        .resizable()
+                        .scaledToFill()
+                        .padding()
+                        .shadow(color: .black, radius: 2)
+                } else if (user.isCreator){
+                    if (self.fetchingPost){
+                        ProgressView()
+                    } else {
+                        addPaintingButton
+                    }
+                }
+                
+                likeButton
             }
             
             if let caption = post.caption, caption.count > 1 {
@@ -103,6 +134,18 @@ struct PostView: View {
             }
             Button("Cancel", role: .cancel) { }
         }
+        .fullScreenCover(isPresented: $showingAddScreen){
+            PhotoCaptureView(photo: $painting)
+        }
+        .onChange(of: painting, perform: {
+            _ in
+            if let userId = user.id {
+                fetchingPost = true
+                addPainting(postId: post.id, userId: userId, image: painting){
+                    getPost(postId: post.id, success: onNewPost)
+                }
+            }
+        })
     }
     
     func formattedDate(_ date: Date) -> String {

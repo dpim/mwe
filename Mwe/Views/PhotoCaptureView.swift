@@ -24,7 +24,6 @@ struct PhotoCaptureView: View {
             CameraView(events: events, onPhoto: photoHandler, applicationName: "Mwe", preferredStartingCameraType: .builtInWideAngleCamera)
             CameraInterfaceView(events: events)
         }
-        
     }
 }
 

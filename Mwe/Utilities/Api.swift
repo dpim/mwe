@@ -88,8 +88,36 @@ func createPost(title: String, caption: String?, userId: String, latitude: Doubl
     }).call()
 }
 
+func addPainting(postId: String, userId: String, image: UIImage?, success: @escaping (() -> ())){
+    let pictureUrl = getApiUrl(endpoint: "posts/\(postId)/upload/picture")
+    if let request = getImageRequest(url: pictureUrl, userId: userId, image: image, type: .painting){
+        request
+            .onData {
+                _ in
+                success()
+            }
+            .call()
+            
+    }
+}
+
 func getPosts(success: @escaping (_ data: Data) -> Void){
     let url = getApiUrl(endpoint: "posts")
+    Request {
+        Url(url)
+        Method(.get)
+        Header.Accept(.json)
+    }
+    .onData { postData in
+        DispatchQueue.main.async {
+           success(postData)
+        }
+    }
+    .call()
+}
+
+func getPost(postId: String, success: @escaping (_ data: Data) -> Void){
+    let url = getApiUrl(endpoint: "posts/\(postId)")
     Request {
         Url(url)
         Method(.get)
