@@ -66,6 +66,15 @@ struct GalleryView: View {
         }
         .navigationTitle("Gallery")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(trailing:
+            Button {
+                self.posts.shouldRefresh()
+            } label: {
+                Image(systemName: "arrow.clockwise.circle")
+                    .resizable()
+                    .frame(width: 25, height: 25)
+            }
+        )
     }
     
     
