@@ -23,7 +23,7 @@ struct MapView: View {
         static let zoom = 1.0
     }
         
-    var toolbarView: some View {
+    var ToolbarView: some View {
         return HStack {
             if (createdPosts.isFetching){
                 ProgressView()
@@ -82,7 +82,7 @@ struct MapView: View {
         .navigationTitle("Discover")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            toolbarView
+            ToolbarView
         }
     }
 }

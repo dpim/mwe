@@ -9,14 +9,21 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct PostView: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var user: User
+    @EnvironmentObject var posts: Posts
     @State private var likeCount = 0
     @State private var didLikePost = false
-    @State private var showingAlert = false
-    @State var painting: UIImage?
+    @State private var showingMenuDialog = false
     @State private var showingAddScreen = false
     @State private var fetchingPost = false
     @State var post: Post
+    @State var painting: UIImage?
+
+    func dismiss(){
+        self.posts.shouldRefresh()
+        self.mode.wrappedValue.dismiss()
+    }
 
     func onNewPost(data: Data){
         let decoder = JSONDecoder()
@@ -27,6 +34,7 @@ struct PostView: View {
             print("could not update post")
         }
         self.fetchingPost = false
+        posts.shouldRefresh()
     }
     
     func getLikes(){
@@ -34,7 +42,7 @@ struct PostView: View {
         likeCount = max(post.likedBy.count, likeCount)
     }
     
-    var addPaintingButton: some View {
+    var PaintingButton: some View {
         Button {
             showingAddScreen = true
         } label: {
@@ -45,7 +53,7 @@ struct PostView: View {
         }
     }
     
-    var likeButton: some View {
+    var LikeButton: some View {
         let likeButtonColor = didLikePost ? Color.accentColor : Color.gray
         let likeText = likeCount == 0 ? "Like" : "Liked by \(likeCount)"
         return HStack {
@@ -74,12 +82,12 @@ struct PostView: View {
         .onAppear(perform: getLikes)
     }
     
-    var toolbarView: some View {
+    var ToolbarView: some View {
         return HStack {
             Button {
-                showingAlert = true
+                self.showingMenuDialog = true
             } label: {
-                Label("Report", systemImage: "questionmark.circle")
+                Label("Report", systemImage: "ellipsis.circle")
             }
         }
     }
@@ -87,30 +95,26 @@ struct PostView: View {
     var body: some View {
         List {
             Section(){
-                WebImage(url: URL(string: post.photographUrl ?? ""))
-                    .resizable()
-                    .scaledToFill()
-                    .padding()
-                    .shadow(color: .black, radius: 2)
-                
-                if (post.paintingUrl != nil){
-                    WebImage(url: URL(string: post.paintingUrl ?? ""))
-                        .resizable()
-                        .scaledToFill()
+                if let photoUrl = post.photographUrl{
+                    SquareImage(url: photoUrl)
                         .padding()
-                        .shadow(color: .black, radius: 2)
+                }
+                
+                if let paintingUrl = post.paintingUrl {
+                    SquareImage(url: paintingUrl)
+                        .padding()
                 } else if (user.isCreator){
                     if (self.fetchingPost){
                         ProgressView()
                     } else {
-                        addPaintingButton
+                        PaintingButton
                     }
                 }
             }
             
             Section("Likes"){
                 HStack {
-                    likeButton
+                    LikeButton
                 }.padding()
             }
             
@@ -123,7 +127,7 @@ struct PostView: View {
             Section("Details"){
                 HStack {
                     Image(systemName: "clock")
-                    Text("Created on \(self.formattedDate(post.createdDate))")
+                    Text("Created on \(formattedDate(post.createdDate))")
                 }.padding()
             }
         }
@@ -133,16 +137,25 @@ struct PostView: View {
             UITableView.appearance().contentInset.top = -35
         })
         .toolbar {
-            toolbarView
+            ToolbarView
         }
-        .alert("Report this post for review?", isPresented: $showingAlert) {
-            Button("Report post", role: .destructive) {
-                // report post
-                if let userId = user.id {
-                    reportPost(userId: userId, postId: post.id)
+        .confirmationDialog("Menu", isPresented: $showingMenuDialog) {
+            if let userId = user.id {
+                if userId == post.createdBy {
+                    Button("Delete post", role: .destructive) {
+                        // report post
+                        deletePost(userId: userId, postId: post.id, success: dismiss)
+                    }
+                //} else {
+                    Button("Report & hide post", role: .destructive) {
+                        // report post
+                        reportPost(userId: userId, postId: post.id, success: dismiss)
+                    }
                 }
             }
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) {
+                self.showingMenuDialog = false
+            }
         }
         .fullScreenCover(isPresented: $showingAddScreen){
             PhotoCaptureView(photo: $painting)
@@ -157,14 +170,6 @@ struct PostView: View {
                 }
             }
         })
-    }
-    
-    func formattedDate(_ date: Date) -> String {
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MMM dd, yyyy"
-        let epoch = date.timeIntervalSince1970/1000
-        let updatedDate = Date(timeIntervalSince1970: epoch)
-        return dateFormatterPrint.string(from: updatedDate)
     }
 }
 

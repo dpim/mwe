@@ -46,22 +46,24 @@ struct MweApp: App {
             TabView(selection: $selection) {
                 NavigationView {
                     MapView()
-                        .onAppear(perform: fetchPosts)
-                        .onChange(of: posts.shouldFetch){
-                            updatedShouldFetch in
-                            // if the latest change is flagging we should fetch, get new posts
-                            if updatedShouldFetch {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    fetchPosts()
-                                }
-                            }
-                        }
                 }
                 .tabItem {
                     Image(systemName: "map")
                     Text("Discover")
                 }
-                    .tag(1)
+                .tag(1)
+                
+                
+                NavigationView {
+                    GalleryView()
+                        .environmentObject(user)
+                        .environmentObject(posts)
+                }
+                .tabItem {
+                    Image(systemName: "photo.on.rectangle")
+                    Text("Gallery")
+                }
+                .tag(2)
                 
                 NavigationView {
                     SettingsView()
@@ -70,7 +72,19 @@ struct MweApp: App {
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")
-                }.tag(2)
+                }
+                .tag(3)
+            }
+            .onAppear(perform: fetchPosts)
+            .onChange(of: posts.shouldFetch){
+                updatedShouldFetch in
+                print("here!!!")
+                // if the latest change is flagging we should fetch, get new posts
+                if updatedShouldFetch {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        fetchPosts()
+                    }
+                }
             }
         } else {
             NavigationView {

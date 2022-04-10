@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import SwiftUI
+import SDWebImageSwiftUI
 
 // from https://www.advancedswift.com/resize-uiimage-no-stretching-swift/
 extension UIImage {
@@ -37,4 +39,18 @@ extension UIImage {
         
         return scaledImage
     }
+}
+
+
+func SquareImage(url: String) -> some View {
+    return GeometryReader { gr in
+        WebImage(url: URL(string: url))
+            .resizable()
+            .scaledToFill()
+            .frame(height: gr.size.width)
+            .shadow(color: .black, radius: 2)
+    }
+    .clipped()
+    .aspectRatio(1, contentMode: .fit)
+    .cornerRadius(5)
 }

@@ -11,6 +11,9 @@ struct CameraInterfaceView: View, CameraActions {
     
     @ObservedObject var events: UserEvents
     var onCancel: () -> Void
+    let minorMenuItemSize: CGFloat = 25
+    let majorMenuItemSize: CGFloat = 50
+    let backgroundPadding: CGFloat = 10
     
     var body: some View {
         VStack {
@@ -22,18 +25,29 @@ struct CameraInterfaceView: View, CameraActions {
                     } label: {
                         Image(systemName: "x.circle")
                             .resizable()
-                            .frame(width: 25, height: 25)
+                            .frame(width: minorMenuItemSize, height: minorMenuItemSize)
+                    }
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.white)
+                            .frame(width: minorMenuItemSize+backgroundPadding, height: minorMenuItemSize+backgroundPadding)
                     }
                 }.padding()
             }
             Spacer()
-            Button {
-                self.takePhoto(events: events)
-            } label: {
-                Image(systemName: "camera.circle")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 50, height: 50, alignment: .center)
+            VStack {
+                Button {
+                    self.takePhoto(events: events)
+                } label: {
+                    Image(systemName: "camera.circle")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: majorMenuItemSize, height: majorMenuItemSize, alignment: .center)
+                }.background {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: majorMenuItemSize+backgroundPadding, height: majorMenuItemSize+backgroundPadding)
+                }
             }
         }
     }

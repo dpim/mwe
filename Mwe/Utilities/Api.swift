@@ -153,13 +153,34 @@ func removeLike(userId: String, postId: String){
     .call()
 }
 
-func reportPost(userId: String, postId: String){
+func reportPost(userId: String, postId: String, success: @escaping (() -> ())){
     let url = getApiUrl(endpoint: "posts/\(postId)/report")
     Request {
         Url(url)
         Method(.post)
         Header.ContentType(.json)
         RequestBody(UserIdBody(userId: userId))
+    }
+    .onData { _ in
+        DispatchQueue.main.async {
+           success()
+        }
+    }
+    .call()
+}
+
+func deletePost(userId: String, postId: String, success: @escaping (() -> ())){
+    let url = getApiUrl(endpoint: "posts/\(postId)/delete")
+    Request {
+        Url(url)
+        Method(.post)
+        Header.ContentType(.json)
+        RequestBody(UserIdBody(userId: userId))
+    }
+    .onData { _ in
+        DispatchQueue.main.async {
+           success()
+        }
     }
     .call()
 }
