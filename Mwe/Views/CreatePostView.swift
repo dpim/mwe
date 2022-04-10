@@ -38,6 +38,7 @@ struct CreatePostView: View {
                 Section("Details") {
                     NavigationLink {
                         PhotoCaptureView(photo: $photo)
+                            .navigationBarHidden(true)
                     } label: {
                         if let photo = photo {
                             Image(uiImage: photo)
@@ -52,6 +53,7 @@ struct CreatePostView: View {
                     
                     NavigationLink {
                         PhotoCaptureView(photo: $painting)
+                            .navigationBarHidden(true)
                     } label: {
                         if let painting = painting {
                             Image(uiImage: painting)

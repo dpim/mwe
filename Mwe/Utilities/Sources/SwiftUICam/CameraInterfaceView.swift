@@ -8,12 +8,23 @@
 import SwiftUI
 
 struct CameraInterfaceView: View, CameraActions {
+    
     @ObservedObject var events: UserEvents
+    var onCancel: () -> Void
     
     var body: some View {
         VStack {
             HStack {
                 Spacer()
+                VStack {
+                    Button {
+                        onCancel()
+                    } label: {
+                        Image(systemName: "x.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                    }
+                }.padding()
             }
             Spacer()
             Button {

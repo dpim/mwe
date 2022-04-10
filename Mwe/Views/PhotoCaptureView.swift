@@ -18,11 +18,15 @@ struct PhotoCaptureView: View {
         self.presentationMode.wrappedValue.dismiss()
     }
     
+    func cancelHandler(){
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
     var body: some View {
         ZStack {
             ProgressView()
             CameraView(events: events, onPhoto: photoHandler, applicationName: "Mwe", preferredStartingCameraType: .builtInWideAngleCamera)
-            CameraInterfaceView(events: events)
+            CameraInterfaceView(events: events, onCancel: cancelHandler)
         }
     }
 }

@@ -38,7 +38,10 @@ struct PostView: View {
         Button {
             showingAddScreen = true
         } label: {
-            Text("Add your painting")
+            HStack {
+                Image(systemName: "paintpalette")
+                Text("Add your painting")
+            }.padding()
         }
     }
     
@@ -67,7 +70,7 @@ struct PostView: View {
                 Label(likeText, systemImage: "hand.thumbsup.circle")
             }.foregroundColor(likeButtonColor)
         }
-        .frame(maxWidth: .infinity, alignment: .trailing)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .onAppear(perform: getLikes)
     }
     
@@ -103,18 +106,25 @@ struct PostView: View {
                         addPaintingButton
                     }
                 }
-                
-                likeButton
+            }
+            
+            Section("Likes"){
+                HStack {
+                    likeButton
+                }.padding()
             }
             
             if let caption = post.caption, caption.count > 1 {
                 Section("Caption"){
-                    Text(post.caption ?? "-")
+                    Text(post.caption ?? "-").padding()
                 }
             }
             
             Section("Details"){
-                Text("Created on \(self.formattedDate(post.createdDate))")
+                HStack {
+                    Image(systemName: "clock")
+                    Text("Created on \(self.formattedDate(post.createdDate))")
+                }.padding()
             }
         }
         .navigationTitle(self.post.title)
@@ -136,6 +146,7 @@ struct PostView: View {
         }
         .fullScreenCover(isPresented: $showingAddScreen){
             PhotoCaptureView(photo: $painting)
+                .accentColor(.purple)
         }
         .onChange(of: painting, perform: {
             _ in
