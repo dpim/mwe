@@ -79,14 +79,7 @@ struct MweApp: App {
             .onChange(of: posts.shouldFetch){
                 _ in
                 // if the latest change is flagging we should fetch, get new posts
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    fetchPosts()
-                }
-            }
-            .onChange(of: selection){
-                _ in
-                // if the latest change is flagging we should fetch, get new posts
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
                     fetchPosts()
                 }
             }

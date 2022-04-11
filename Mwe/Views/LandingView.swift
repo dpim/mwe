@@ -57,10 +57,8 @@ struct LandingView: View {
             VStack(alignment: .center){
                 Text("mwe")
                     .font(
-                        Font.system(size: 100)
-                            .italic()
-                            .weight(.ultraLight)
-                            .monospaced()
+                        Font.system(size: 125)
+                            .weight(.heavy)
                     )
                     .foregroundColor(.white)
                     .shadow(color: .white, radius: 1)
@@ -84,7 +82,7 @@ struct LandingView: View {
             }
         }.background{
             Image("watercolormap").rotationEffect(Angle(
-                degrees: -25 + 10 * animationAmount)
+                degrees: 25 + 10 * animationAmount)
             )
                 .scaleEffect(1 + 0.5*animationAmount)
                 .animation(
@@ -94,7 +92,7 @@ struct LandingView: View {
                 ).onAppear {
                     animationAmount = 0
                 }
-            LinearGradient(gradient: Gradient(colors: [.black.opacity(0.95), .purple.opacity(0.95)]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [.black.opacity(0.95), .purple.opacity(0.8)]), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
         }.preferredColorScheme(.dark)
     }

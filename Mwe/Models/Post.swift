@@ -19,6 +19,7 @@ struct Post: Identifiable, Codable
     let createdBy: String
     let likedBy: [String]
     var createdDate: Date
+    var createdByDisplayName: String?
     var lastUpdatedDate: Date
     
     

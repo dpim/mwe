@@ -125,10 +125,18 @@ struct PostView: View {
             }
             
             Section("Details"){
-                HStack {
-                    Image(systemName: "clock")
-                    Text("Created on \(formattedDate(post.createdDate))")
-                }.padding()
+                VStack(alignment: .leading){
+                    HStack {
+                        Image(systemName: "clock")
+                        Text("Created on \(formattedDate(post.createdDate))")
+                    }.padding()
+                    if let creatorDisplayName = post.createdByDisplayName {
+                        HStack {
+                            Image(systemName: "person.circle")
+                            Text("Posted by \(creatorDisplayName)")
+                        }.padding()
+                    }
+                }
             }
         }
         .navigationTitle(self.post.title)
@@ -146,7 +154,7 @@ struct PostView: View {
                         // report post
                         deletePost(userId: userId, postId: post.id, success: dismiss)
                     }
-                //} else {
+                } else {
                     Button("Report & hide post", role: .destructive) {
                         // report post
                         reportPost(userId: userId, postId: post.id, success: dismiss)

@@ -10,7 +10,7 @@ import MapKit
 import Request
 
 struct MapView: View {
-    @EnvironmentObject var createdPosts: Posts
+    @EnvironmentObject var posts: Posts
     @EnvironmentObject var user: User 
     @State private var showingAddScreen = false
     @State private var region = MKCoordinateRegion(
@@ -25,7 +25,7 @@ struct MapView: View {
         
     var ToolbarView: some View {
         return HStack {
-            if (createdPosts.isFetching){
+            if (posts.isFetching){
                 ProgressView()
             }
             if (user.isCreator) {
@@ -39,7 +39,7 @@ struct MapView: View {
     }
     
     var filteredPosts: [Post] {
-        return createdPosts.postEntries.filter { post in
+        return posts.postEntries.filter { post in
             return !self.user.blockedPostIds.contains(post.id)
         }
     }
