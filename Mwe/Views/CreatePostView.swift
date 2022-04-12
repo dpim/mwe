@@ -7,6 +7,7 @@
 import SwiftUI
 import Request
 import Json
+import MapKit
 
 private let exampleLatitude = 37.382221
 private let exampleLongitude = -122.1937
@@ -22,7 +23,7 @@ struct CreatePostView: View {
     
     var latitude: Double
     var longitude: Double
-    
+        
     // has the required field
     var hasPhoto: Bool {
         return photo != nil
@@ -74,7 +75,15 @@ struct CreatePostView: View {
                         .disabled(!hasPhoto)
                 }
                 
-                Section("") {
+                Section(){
+                    MiniMapView(latitude: latitude, longitude: longitude)
+                        .frame(width: .infinity,
+                               height: 150,
+                               alignment: .center
+                        ).padding()
+                }
+                
+                Section() {
                     Button(action: {
                         // post user
                         if let userId = user.id {

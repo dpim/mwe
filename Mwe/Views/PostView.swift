@@ -115,7 +115,7 @@ struct PostView: View {
             Section("Likes"){
                 HStack {
                     LikeButton
-                }.padding()
+                }.padding(5)
             }
             
             if let caption = post.caption, caption.count > 1 {
@@ -126,15 +126,21 @@ struct PostView: View {
             
             Section("Details"){
                 VStack(alignment: .leading){
+                    MiniMapView(latitude: post.latitude,
+                                longitude: post.longitude)
+                        .frame(width: .infinity,
+                               height: 150,
+                               alignment: .center)
+                        .padding(5)
                     HStack {
                         Image(systemName: "clock")
                         Text("Created on \(formattedDate(post.createdDate))")
-                    }.padding()
+                    }.padding(5)
                     if let creatorDisplayName = post.createdByDisplayName {
                         HStack {
                             Image(systemName: "person.circle")
                             Text("Posted by \(creatorDisplayName)")
-                        }.padding()
+                        }.padding(5)
                     }
                 }
             }

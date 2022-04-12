@@ -7,10 +7,12 @@
 
 import SwiftUI
 import Request
+import Firebase
 
 @main
 
 struct MweApp: App {
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @StateObject var user: User = User()
     @StateObject var posts = Posts()
     @State var selection = 1
@@ -102,3 +104,10 @@ struct MweApp: App {
 }
 
 typealias RequestBody = Body
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
+}

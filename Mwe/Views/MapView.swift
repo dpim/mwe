@@ -14,7 +14,13 @@ struct MapView: View {
     @EnvironmentObject var user: User 
     @State private var showingAddScreen = false
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: MapDefaults.latitude, longitude: MapDefaults.longitude),span: MKCoordinateSpan(latitudeDelta: MapDefaults.zoom, longitudeDelta: MapDefaults.zoom)
+            center:
+                CLLocationCoordinate2D(
+                    latitude: MapDefaults.latitude,
+                    longitude: MapDefaults.longitude),
+            span: MKCoordinateSpan(
+                latitudeDelta: MapDefaults.zoom,
+                longitudeDelta: MapDefaults.zoom)
     )
     
     private enum MapDefaults {
