@@ -41,7 +41,6 @@ extension UIImage {
     }
 }
 
-
 func SquareImage(url: String) -> some View {
     return GeometryReader { gr in
         WebImage(url: URL(string: url))

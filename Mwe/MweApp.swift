@@ -54,7 +54,7 @@ struct MweApp: App {
                     Text("Discover")
                 }
                 .tag(1)
-                
+                .navigationViewStyle(.stack)
                 
                 NavigationView {
                     GalleryView()
@@ -66,6 +66,7 @@ struct MweApp: App {
                     Text("Gallery")
                 }
                 .tag(2)
+                .navigationViewStyle(.stack)
                 
                 NavigationView {
                     SettingsView()
@@ -76,6 +77,7 @@ struct MweApp: App {
                     Text("Profile")
                 }
                 .tag(3)
+                .navigationViewStyle(.stack)
             }
             .onAppear(perform: fetchPosts)
             .onChange(of: posts.shouldFetch){
@@ -90,6 +92,7 @@ struct MweApp: App {
                 LandingView()
                     .environmentObject(user)
             }
+            .navigationViewStyle(.stack)
         }
     }
     

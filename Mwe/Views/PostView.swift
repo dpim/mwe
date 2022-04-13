@@ -19,12 +19,12 @@ struct PostView: View {
     @State private var fetchingPost = false
     @State var post: Post
     @State var painting: UIImage?
-
+    
     func dismiss(){
         self.posts.shouldRefresh()
         self.mode.wrappedValue.dismiss()
     }
-
+    
     func onNewPost(data: Data){
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
@@ -94,22 +94,12 @@ struct PostView: View {
     
     var body: some View {
         List {
-            Section(){
-                if let photoUrl = post.photographUrl{
-                    SquareImage(url: photoUrl)
-                        .padding()
-                }
-                
-                if let paintingUrl = post.paintingUrl {
-                    SquareImage(url: paintingUrl)
-                        .padding()
-                } else if (user.isCreator){
-                    if (self.fetchingPost){
-                        ProgressView()
-                    } else {
-                        PaintingButton
-                    }
-                }
+            VStack {
+                ImageCardStackView(
+                    post: $post,
+                    painting: $painting,
+                    showingAddScreen: $showingAddScreen)
+                Spacer()
             }
             
             Section("Likes"){
@@ -120,7 +110,8 @@ struct PostView: View {
             
             if let caption = post.caption, caption.count > 1 {
                 Section("Caption"){
-                    Text(post.caption ?? "-").padding()
+                    Text(post.caption ?? "-")
+                        .padding(5)
                 }
             }
             
@@ -128,9 +119,9 @@ struct PostView: View {
                 VStack(alignment: .leading){
                     MiniMapView(latitude: post.latitude,
                                 longitude: post.longitude)
-                        .frame(width: .infinity,
-                               height: 150,
-                               alignment: .center)
+                        .frame(
+                            height: 150,
+                            alignment: .center)
                         .padding(5)
                     HStack {
                         Image(systemName: "clock")
@@ -177,12 +168,16 @@ struct PostView: View {
         }
         .onChange(of: painting, perform: {
             _ in
-            if let userId = user.id {
+            if let userId = user.id, let painting = painting {
                 fetchingPost = true
                 addPainting(postId: post.id, userId: userId, image: painting){
                     getPost(postId: post.id, success: onNewPost)
                 }
             }
+        })
+        .onChange(of: likeCount, perform: {
+            _ in
+            getPost(postId: post.id, success: onNewPost)
         })
     }
 }

@@ -36,19 +36,15 @@ struct MiniMapView: View {
     }
     
     var body: some View {
-        Map(coordinateRegion: .constant(region), annotationItems: locations){
+        Map(coordinateRegion: .constant(region), interactionModes: [], annotationItems: locations){
             point in
             MapAnnotation(coordinate: point.location) {
-//                NavigationLink {
-//                    //test
-//                } label: {
                     Image(systemName: "mappin.circle.fill")
                         .resizable()
                         .frame(width: 50, height: 50)
                         .background(.regularMaterial)
                         .clipShape(Circle())
                         .foregroundColor(.purple)
-//               }
             }
         }
     }

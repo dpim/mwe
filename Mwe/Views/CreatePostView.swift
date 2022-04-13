@@ -77,7 +77,7 @@ struct CreatePostView: View {
                 
                 Section(){
                     MiniMapView(latitude: latitude, longitude: longitude)
-                        .frame(width: .infinity,
+                        .frame(
                                height: 150,
                                alignment: .center
                         ).padding()

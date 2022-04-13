@@ -22,6 +22,8 @@
 		677AD55C28047310003A2555 /* FirebaseInAppMessagingSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 677AD55B28047310003A2555 /* FirebaseInAppMessagingSwift-Beta */; };
 		677AD55E28047310003A2555 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 677AD55D28047310003A2555 /* FirebaseMessaging */; };
 		677AD56028050135003A2555 /* MiniMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677AD55F28050135003A2555 /* MiniMapView.swift */; };
+		677AD5622805BDBA003A2555 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677AD5612805BDBA003A2555 /* CardView.swift */; };
+		677AD5642805C050003A2555 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677AD5632805C050003A2555 /* Card.swift */; };
 		6789282A27AF22A200896D7B /* MweApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789282927AF22A200896D7B /* MweApp.swift */; };
 		6789282C27AF22A200896D7B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789282B27AF22A200896D7B /* ContentView.swift */; };
 		6789282E27AF22A300896D7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6789282D27AF22A300896D7B /* Assets.xcassets */; };
@@ -77,6 +79,8 @@
 		675EF14327B2D25C00A81A44 /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		677AD55028047240003A2555 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		677AD55F28050135003A2555 /* MiniMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMapView.swift; sourceTree = "<group>"; };
+		677AD5612805BDBA003A2555 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		677AD5632805C050003A2555 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		6789282627AF22A200896D7B /* Mwe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mwe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6789282927AF22A200896D7B /* MweApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MweApp.swift; sourceTree = "<group>"; };
 		6789282B27AF22A200896D7B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				6789286027AF232F00896D7B /* PhotoCaptureView.swift */,
 				6789286627AF2BB900896D7B /* LikedView.swift */,
 				677AD55F28050135003A2555 /* MiniMapView.swift */,
+				677AD5612805BDBA003A2555 /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -225,6 +230,7 @@
 				6789286227AF297900896D7B /* User.swift */,
 				6789286427AF29DA00896D7B /* Post.swift */,
 				6789286B27AF3E6900896D7B /* Posts.swift */,
+				677AD5632805C050003A2555 /* Card.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -434,6 +440,7 @@
 				6789288427AF50E100896D7B /* CameraViewControllerDelegate.swift in Sources */,
 				6789288727AF568400896D7B /* CameraInterfaceView.swift in Sources */,
 				6729AE6428031FDF0006B250 /* Date.swift in Sources */,
+				677AD5622805BDBA003A2555 /* CardView.swift in Sources */,
 				6789288927AF596D00896D7B /* CameraOutput.swift in Sources */,
 				6789286F27AF472C00896D7B /* LocationHelper.swift in Sources */,
 				6789286C27AF3E6900896D7B /* Posts.swift in Sources */,
@@ -442,6 +449,7 @@
 				6789285A27AF22DA00896D7B /* PostView.swift in Sources */,
 				6789288527AF50E100896D7B /* CameraView.swift in Sources */,
 				6789286727AF2BB900896D7B /* LikedView.swift in Sources */,
+				677AD5642805C050003A2555 /* Card.swift in Sources */,
 				6789282A27AF22A200896D7B /* MweApp.swift in Sources */,
 				6789288327AF50E100896D7B /* CameraViewController.swift in Sources */,
 				675EF14427B2D25C00A81A44 /* KeychainWrapper.swift in Sources */,
@@ -624,7 +632,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.04;
 				PRODUCT_BUNDLE_IDENTIFIER = DmitryPimenov.MweApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -658,7 +666,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.03;
+				MARKETING_VERSION = 1.04;
 				PRODUCT_BUNDLE_IDENTIFIER = DmitryPimenov.MweApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
