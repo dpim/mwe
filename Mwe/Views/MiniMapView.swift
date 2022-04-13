@@ -46,7 +46,7 @@ struct MiniMapView: View {
                         .clipShape(Circle())
                         .foregroundColor(.purple)
             }
-        }
+        }.cornerRadius(3.0)
     }
 }
 

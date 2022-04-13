@@ -90,6 +90,8 @@ struct ImageCardStackView: View {
                         x: getInitialOffSet() + stepSize * 2 * self.deck.indexOfCard(card),
                         y: getInitialOffSet() + stepSize * 2 * self.deck.indexOfCard(card)
                     )
+                    .animation(.spring(),
+                               value: self.deck.indexOfCard(card))
                     .shadow(radius: 3)
                     .scaledToFill()
                     .environmentObject(deck)
@@ -99,7 +101,7 @@ struct ImageCardStackView: View {
         }).onChange(of: post, perform: { _ in
             self.deck.cards = getCards()
         })
-        .padding([.top], stepSize * 1.5)
+        .padding([.top], stepSize)
     }
 }
 

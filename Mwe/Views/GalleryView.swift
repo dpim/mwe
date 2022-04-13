@@ -59,7 +59,7 @@ struct GalleryView: View {
         VStack {
             if (self.posts.postEntries.count > 0){
                 GridView
-            } else {
+            } else if (!self.posts.isFetching){
                 Text("No posts yet")
                     .padding()
             }

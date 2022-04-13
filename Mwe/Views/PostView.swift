@@ -94,13 +94,13 @@ struct PostView: View {
     
     var body: some View {
         List {
-            VStack {
+            
+            Section {
                 ImageCardStackView(
                     post: $post,
                     painting: $painting,
                     showingAddScreen: $showingAddScreen)
-                Spacer()
-            }
+            }.listRowBackground(Color.clear)
             
             Section("Likes"){
                 HStack {
