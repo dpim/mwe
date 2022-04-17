@@ -12,16 +12,19 @@ extension KeychainSwift {
     private static let emailKey = "email"
     private static let idKey = "id"
     private static let signedInKey = "signedIn"
+    private static let tokenKey = "apiToken"
     
-    func getMweAccountDetails() -> (name: String?, email: String?, id: String?, signedIn: Bool){
+    func getMweAccountDetails() -> (name: String?, email: String?, id: String?, token: String?, signedIn: Bool){
         let name = self.get(KeychainSwift.nameKey)
         let email = self.get(KeychainSwift.emailKey)
         let id = self.get(KeychainSwift.idKey)
+        let token = self.get(KeychainSwift.tokenKey)
         let signedIn = self.getBool(KeychainSwift.signedInKey)
-        return (name, email, id, signedIn ?? false)
+        return (name, email, id, token, signedIn ?? false)
     }
     
-    func setMweAccountDetails(name: String, email: String, id: String, signedIn: Bool){
+    func setMweAccountDetails(name: String, email: String, id: String, token: String, signedIn: Bool){
+        self.set(token, forKey: KeychainSwift.tokenKey)
         self.set(name, forKey: KeychainSwift.nameKey)
         self.set(email, forKey: KeychainSwift.emailKey)
         self.set(id, forKey: KeychainSwift.idKey)

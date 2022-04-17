@@ -15,6 +15,12 @@ func getApiUrl(endpoint: String) -> String {
     return "\(baseUrl)/\(endpoint)"
 }
 
+func getToken() -> String? {
+    let keychain = KeychainSwift()
+    let (_, _, _, token, _) = keychain.getMweAccountDetails()
+    return token
+}
+
 struct PostRequestBody: Codable {
     let title: String
     let caption: String?
@@ -40,6 +46,28 @@ enum ImageType: String {
     case painting = "picture"
 }
 
+func createApiToken(userId: String) -> Request? {
+    let url = getApiUrl(endpoint: "token")
+    let body = UserIdBody(userId: userId)
+    return Request {
+        Url(url)
+        Method(.post)
+        Header.ContentType(.json)
+        RequestBody(body)
+    }
+}
+
+func createUser(userId: String, displayName: String) -> Request? {
+    let url = getApiUrl(endpoint: "users/\(userId)")
+    let body = AccountRequestBody(displayName: displayName)
+    return Request {
+        Url(url)
+        Method(.post)
+        Header.ContentType(.json)
+        RequestBody(body)
+    }
+}
+
 func getImageRequest(url: String, userId: String, image: UIImage?, type: ImageType) -> Request? {
     if let image = image {
         let resized = image.scalePreservingAspectRatio(targetSize: CGSize(width: 800, height: 800))
@@ -57,35 +85,38 @@ func getImageRequest(url: String, userId: String, image: UIImage?, type: ImageTy
 }
 
 func createPost(title: String, caption: String?, userId: String, latitude: Double, longitude: Double, photograph: UIImage?, painting: UIImage?) {
-    let url = getApiUrl(endpoint: "posts")
-    let body = PostRequestBody(title: title, caption: caption, userId: userId, latitude: latitude, longitude: longitude)
-    Request {
-        Url(url)
-        Method(.post)
-        Header.ContentType(.json)
-        RequestBody(body)
-    }.onJson({
-        json in
-        if let postId = json["postId"].stringOptional {
-            // upload images
-            let photoUrl = getApiUrl(endpoint: "posts/\(postId)/upload/photo")
-            let pictureUrl = getApiUrl(endpoint: "posts/\(postId)/upload/picture")
-                        
-            let pictureRequest = getImageRequest(url: pictureUrl, userId: userId, image: painting, type: .painting)
-            let photoRequest = getImageRequest(url: photoUrl, userId: userId, image: photograph, type: .painting)
-            
-            if pictureRequest == nil, let photoRequest = photoRequest {
-                RequestGroup {
-                    photoRequest
-                }.call()
-            } else if let photoRequest = photoRequest, let pictureRequest = pictureRequest {
-                RequestGroup {
-                    photoRequest
-                    pictureRequest
-                }.call()
+    if let token = getToken(){
+        let url = getApiUrl(endpoint: "posts")
+        let body = PostRequestBody(title: title, caption: caption, userId: userId, latitude: latitude, longitude: longitude)
+        Request {
+            Url(url)
+            Method(.post)
+            Header.Authorization(.bearer(token))
+            Header.ContentType(.json)
+            RequestBody(body)
+        }.onJson({
+            json in
+            if let postId = json["postId"].stringOptional {
+                // upload images
+                let photoUrl = getApiUrl(endpoint: "posts/\(postId)/upload/photo")
+                let pictureUrl = getApiUrl(endpoint: "posts/\(postId)/upload/picture")
+                            
+                let pictureRequest = getImageRequest(url: pictureUrl, userId: userId, image: painting, type: .painting)
+                let photoRequest = getImageRequest(url: photoUrl, userId: userId, image: photograph, type: .painting)
+                
+                if pictureRequest == nil, let photoRequest = photoRequest {
+                    RequestGroup {
+                        photoRequest
+                    }.call()
+                } else if let photoRequest = photoRequest, let pictureRequest = pictureRequest {
+                    RequestGroup {
+                        photoRequest
+                        pictureRequest
+                    }.call()
+                }
             }
-        }
-    }).call()
+        }).call()
+    }
 }
 
 func addPainting(postId: String, userId: String, image: UIImage?, success: @escaping (() -> ())){
@@ -132,25 +163,31 @@ func getPost(postId: String, success: @escaping (_ data: Data) -> Void){
 }
 
 func addLike(userId: String, postId: String){
-    let url = getApiUrl(endpoint: "posts/\(postId)/like")
-    Request {
-        Url(url)
-        Method(.post)
-        Header.ContentType(.json)
-        RequestBody(UserIdBody(userId: userId))
+    if let token = getToken(){
+        let url = getApiUrl(endpoint: "posts/\(postId)/like")
+        Request {
+            Url(url)
+            Method(.post)
+            Header.Authorization(.bearer(token))
+            Header.ContentType(.json)
+            RequestBody(UserIdBody(userId: userId))
+        }
+        .call()
     }
-    .call()
 }
 
 func removeLike(userId: String, postId: String){
-    let url = getApiUrl(endpoint: "posts/\(postId)/unlike")
-    Request {
-        Url(url)
-        Method(.post)
-        Header.ContentType(.json)
-        RequestBody(UserIdBody(userId: userId))
+    if let token = getToken(){
+        let url = getApiUrl(endpoint: "posts/\(postId)/unlike")
+        Request {
+            Url(url)
+            Method(.post)
+            Header.Authorization(.bearer(token))
+            Header.ContentType(.json)
+            RequestBody(UserIdBody(userId: userId))
+        }
+        .call()
     }
-    .call()
 }
 
 func reportPost(userId: String, postId: String, success: @escaping (() -> ())){
@@ -170,19 +207,22 @@ func reportPost(userId: String, postId: String, success: @escaping (() -> ())){
 }
 
 func deletePost(userId: String, postId: String, success: @escaping (() -> ())){
-    let url = getApiUrl(endpoint: "posts/\(postId)/delete")
-    Request {
-        Url(url)
-        Method(.post)
-        Header.ContentType(.json)
-        RequestBody(UserIdBody(userId: userId))
-    }
-    .onData { _ in
-        DispatchQueue.main.async {
-           success()
+    if let token = getToken(){
+        let url = getApiUrl(endpoint: "posts/\(postId)/delete")
+        Request {
+            Url(url)
+            Method(.post)
+            Header.Authorization(.bearer(token))
+            Header.ContentType(.json)
+            RequestBody(UserIdBody(userId: userId))
         }
+        .onData { _ in
+            DispatchQueue.main.async {
+               success()
+            }
+        }
+        .call()
     }
-    .call()
 }
 
 func getUserPosts(userId: String, success: @escaping ((blockedPostIds: [String], likedPostIds: [String])) -> Void) {

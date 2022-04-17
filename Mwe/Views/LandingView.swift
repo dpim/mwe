@@ -34,18 +34,14 @@ struct LandingView: View {
             let id: String = credential.user
             
             // post user
-            let url = getApiUrl(endpoint: "users/\(id)")
-            let body = AccountRequestBody(displayName: name)
-            Request {
-                Url(url)
-                Method(.post)
-                Header.ContentType(.json)
-                RequestBody(body)
-            }.call()
+            createUser(userId: id, displayName: name)?.call()
+            
             delayedSignIn(name, email, id)
+            
         } else {
+            print("existing")
             // existing user
-            let (name, email, id, _) = keychain.getMweAccountDetails()
+            let (name, email, id, _, _) = keychain.getMweAccountDetails()
             if let email = email, let name = name, let id = id {
                 delayedSignIn(name, email, id)
             }

@@ -80,6 +80,11 @@ struct MweApp: App {
                 .navigationViewStyle(.stack)
             }
             .onAppear(perform: fetchPosts)
+            .onAppear(perform: {
+                if let name = user.displayName, let email = user.email, let id = user.id {
+                    user.signInWith(name: name, email: email, id: id)
+                }
+            })
             .onChange(of: posts.shouldFetch){
                 _ in
                 // if the latest change is flagging we should fetch, get new posts

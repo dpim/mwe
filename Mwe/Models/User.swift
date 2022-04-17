@@ -17,7 +17,6 @@ class User: ObservableObject {
     @Published var blockedPostIds: [String]
     @Published var likedPostIds: [String]
 
-
     var isCreator: Bool {
        return true // (displayName == "Mary Pimenova")
     }
@@ -25,7 +24,7 @@ class User: ObservableObject {
     // update to load from data
     init(){
         let keychain = KeychainSwift()
-        let (name, email, id, signedIn) = keychain.getMweAccountDetails()
+        let (name, email, id, _, signedIn) = keychain.getMweAccountDetails()
         self.blockedPostIds = []
         self.likedPostIds = []
         if let name = name, let email = email {
@@ -50,11 +49,27 @@ class User: ObservableObject {
     }
     
     func signInWith(name: String, email: String, id: String? = nil){
-        let keychain = KeychainSwift()
-        if let id = id {
-            keychain.setMweAccountDetails(name: name, email: email, id: id, signedIn: true)
+        let token = getToken()
+        guard let userId = id else {
+            return;
         }
-        self.id = id
+        guard let token = token else {
+            // if no token - get a new one using the user id
+            createApiToken(userId: userId)?.onJson({
+                json in
+                if let token = json["token"].stringOptional {
+                    self.setSignedIn(name: name, email: email, userId: userId, token: token)
+                }
+            }).call()
+            return;
+        }
+        self.setSignedIn(name: name, email: email, userId: userId, token: token)
+    }
+    
+    func setSignedIn(name: String, email: String, userId: String, token: String){
+        let keychain = KeychainSwift()
+        keychain.setMweAccountDetails(name: name, email: email, id: userId, token: token, signedIn: true)
+        self.id = userId
         self.displayName = name
         self.email = email
         self.isSignedIn = true
