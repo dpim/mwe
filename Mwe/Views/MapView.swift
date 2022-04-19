@@ -20,7 +20,8 @@ struct MapView: View {
                     longitude: MapDefaults.longitude),
             span: MKCoordinateSpan(
                 latitudeDelta: MapDefaults.zoom,
-                longitudeDelta: MapDefaults.zoom)
+                longitudeDelta: MapDefaults.zoom
+            )
     )
     
     private enum MapDefaults {

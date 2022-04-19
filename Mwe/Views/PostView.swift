@@ -118,7 +118,7 @@ struct PostView: View {
             Section("Details"){
                 VStack(alignment: .leading){
                     MiniMapView(latitude: post.latitude,
-                                longitude: post.longitude)
+                                longitude: post.longitude, post: post)
                         .frame(
                             height: 150,
                             alignment: .center)

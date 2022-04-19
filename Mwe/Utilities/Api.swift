@@ -41,6 +41,11 @@ struct Base64Body: Codable {
     let image: String
 }
 
+struct LocationBody: Codable {
+    let latitude: Double
+    let longitude: Double
+}
+
 enum ImageType: String {
     case photograph = "photo"
     case painting = "picture"
@@ -204,6 +209,25 @@ func reportPost(userId: String, postId: String, success: @escaping (() -> ())){
         }
     }
     .call()
+}
+
+func updateLocation(userId: String, postId: String, latitude: Double, longitude: Double, success: @escaping (() -> ())){
+    if let token = getToken(){
+        let url = getApiUrl(endpoint: "posts/\(postId)/location")
+        Request {
+            Url(url)
+            Method(.post)
+            Header.Authorization(.bearer(token))
+            Header.ContentType(.json)
+            RequestBody(LocationBody(latitude: latitude, longitude: longitude))
+        }
+        .onData { _ in
+            DispatchQueue.main.async {
+               success()
+            }
+        }
+        .call()
+    }
 }
 
 func deletePost(userId: String, postId: String, success: @escaping (() -> ())){

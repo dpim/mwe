@@ -35,11 +35,9 @@ struct LandingView: View {
             
             // post user
             createUser(userId: id, displayName: name)?.call()
-            
             delayedSignIn(name, email, id)
             
         } else {
-            print("existing")
             // existing user
             let (name, email, id, _, _) = keychain.getMweAccountDetails()
             if let email = email, let name = name, let id = id {
